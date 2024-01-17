@@ -1,0 +1,238 @@
+<main class="wrapperMain_content">
+  <div class="section-index-slider" id="home-slider">
+    <div class="container container-md-pd0">
+      <div class="slider-owl owl-carousel">
+        <div class="slider-item">
+          <div class="slide--image">
+            <a href="collections/all.html">
+              <div
+                id="carouselExampleSlidesOnly"
+                class="carousel slide carousel-fade"
+                data-interval="2000"
+                data-wrap="true"
+              >
+                <div class="carousel-inner" data-interval="2000">
+                  <div class="carousel-item active">
+                    <img
+                      src="../../../assets/anh-banner/b16.jpg"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="carousel-item" data-interval="2000">
+                    <img
+                      src="../../../assets/anh-banner/b17.jpg"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="carousel-item" data-interval="2000">
+                    <img
+                      src="../../../assets/anh-banner/b18.jpg"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="section-index-collection" data-feature="home-collection-1">
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2 class="hTitle">
+          <a> SẢN PHẨM BÁN CHẠY </a>
+        </h2>
+      </div>
+      <div class="section-content">
+        <div class="wraplist-products">
+          <div class="listProduct-row listProduct-resize-1">
+            <div
+              class="col-md-3 col-sm-6 col-xs-6 product-loop"
+              ng-repeat="topSanPham in listTopSanPhamBanChay "
+            >
+              <div class="product-inner product-resize">
+                <div class="proloop-image">
+                  <div class="product--image image-resize">
+                    <div class="product--image__inner">
+                      <div class="">
+                        <div
+                          id="carouselExampleSlidesOnly"
+                          class="carousel slide"
+                          data-bs-ride="carousel"
+                        >
+                          <div class="carousel-inner">
+                            <div
+                              class="carousel-item"
+                              ng-class="{'active': $index===0}"
+                              data-bs-interval="2000"
+                              ng-repeat="hinhAnh in topSanPham.duongDan"
+                            >
+                              <a
+                                href="#/detail-product/{{topSanPham.idSanPham}}"
+                              >
+                                <img
+                                  ng-src="../../../assets/anh-san-pham/{{hinhAnh}}"
+                                  class="d-block w-100"
+                                  alt="..."
+                                />
+                                <div
+                                  class="prod-img second-image hovered-img hidden-xs"
+                                >
+                                  <img
+                                    class="hover img-loop"
+                                    src="../../../assets/anh-size/z2291209325080_43f69694609403993f8785c47f15a2ef_7fd113850f9745b583c229f2b1d194d2_grande.jpg"
+                                  />
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="proloop-detail">
+                  <h3>
+                    <a
+                      href="#/detail-product/{{topSanPham.idSanPham}}"
+                      class="quickview-product"
+                      style="text-transform: uppercase"
+                      >{{topSanPham.tenSanPham}} {{topSanPham.tenPhongCach}}
+                      {{topSanPham.tenHoaTiet}}
+                    </a>
+                  </h3>
+                  <p class="proloop--price">
+                    <span
+                      ng-if="topSanPham.giaMax!=topSanPham.giaMin"
+                      class="price"
+                      >{{topSanPham.giaMin | number}} VND - {{topSanPham.giaMax
+                      | number}} VND</span
+                    >
+                    <span
+                      ng-if="topSanPham.giaMax==topSanPham.giaMin"
+                      class="price"
+                      >{{topSanPham.giaMin | number}} VND</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wraplist-button text-center visible-desk visible-mobile">
+          <a href="#tat-ca-san-pham" class="button dark btn-collection"
+            >Xem thêm sản phẩm khác
+          </a>
+        </div>
+      </div>
+
+      <div class="section-banner">
+        <div class="wraplist-image groupbanner-hover">
+          <a href="collections/san-pham-moi.html">
+            <img
+              src="../../../assets/anh-san-pham/Sanphammoinhat.webp"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-index-collection" data-feature="home-collection-1">
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2 class="hTitle">
+          <a> SẢN PHẨM MỚI NHẤT </a>
+        </h2>
+      </div>
+      <div class="section-content">
+        <div class="wraplist-products">
+          <div class="listProduct-row listProduct-resize-1">
+            <div
+              class="col-md-3 col-sm-6 col-xs-6 product-loop"
+              ng-repeat="topSanPham in listTopSanPham "
+            >
+              <div class="product-inner product-resize">
+                <div class="proloop-image">
+                  <div class="product--image image-resize">
+                    <div class="product--image__inner">
+                      <div class="">
+                        <div
+                          id="carouselExampleSlidesOnly"
+                          class="carousel slide"
+                          data-bs-ride="carousel"
+                        >
+                          <div class="carousel-inner">
+                            <div
+                              class="carousel-item"
+                              ng-class="{'active': $index===0}"
+                              data-bs-interval="2000"
+                              ng-repeat="hinhAnh in topSanPham.duongDan"
+                            >
+                              <a
+                                href="#/detail-product/{{topSanPham.idSanPham}}"
+                              >
+                                <img
+                                  ng-src="../../../assets/anh-san-pham/{{hinhAnh}}"
+                                  class="d-block w-100"
+                                  alt="..."
+                                />
+                                <div
+                                  class="prod-img second-image hovered-img hidden-xs"
+                                >
+                                  <img
+                                    class="hover img-loop"
+                                    src="../../../assets/anh-size/z2291209325080_43f69694609403993f8785c47f15a2ef_7fd113850f9745b583c229f2b1d194d2_grande.jpg"
+                                  />
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="proloop-detail">
+                  <h3>
+                    <a
+                      href="#/detail-product/{{topSanPham.idSanPham}}"
+                      class="quickview-product"
+                      style="text-transform: uppercase"
+                      >{{topSanPham.tenSanPham}} {{topSanPham.tenPhongCach}}
+                      {{topSanPham.tenHoaTiet}}
+                    </a>
+                  </h3>
+                  <p class="proloop--price">
+                    <span
+                      ng-if="topSanPham.giaMax!=topSanPham.giaMin"
+                      class="price"
+                      >{{topSanPham.giaMin | number}} VND - {{topSanPham.giaMax
+                      | number}} VND</span
+                    >
+                    <span
+                      ng-if="topSanPham.giaMax==topSanPham.giaMin"
+                      class="price"
+                      >{{topSanPham.giaMin | number}} VND</span
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wraplist-button text-center visible-desk visible-mobile">
+          <a href="#tat-ca-san-pham" class="button dark btn-collection"
+            >Xem thêm sản phẩm khác
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

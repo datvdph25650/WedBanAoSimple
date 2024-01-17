@@ -1,0 +1,271 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="card flex-fill">
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <h4>DANH SÁCH SẢN PHẨM CHI TIẾT</h4>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p>Ngày Tạo: {{detailSanPham.ngayTao | date:'dd/MM/yyyy hh:mm'}}</p>
+                                <p>Ngày Sửa: {{detailSanPham.ngaySua | date:'dd/MM/yyyy hh:mm'}}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Người Tạo: {{detailSanPham.nguoiTao}}</p>
+                                <p>Người Sửa: {{detailSanPham.nguoiSua}}</p>
+                            </div>
+                            <div class="col-md-3 text-end ">
+                                <a type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#updateSanPham">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Cập Nhật Sản Phẩm
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div class="modal fade" id="updateSanPham" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Tên Sản Phẩm</label>
+                                                        <input type="text" class="form-control"
+                                                            ng-model="detailSanPham.ten">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Mô Tả</label>
+                                                        <textarea class="form-control mb-3 " cols="100" rows="3"
+                                                            ng-model="detailSanPham.moTa"></textarea>
+
+                                                    </div>
+                                                    <div class="mb-3" class="form-check">
+                                                        <label class="form-label">Trạng Thái</label><br>
+                                                        <input type="radio" value="false" ng-model="detailSanPham.daXoa"
+                                                            ng-checked="detailSanPham.daXoa==false"
+                                                            class="form-check-input">
+                                                        <label class="form-check-label">
+                                                            Đang Kinh Doanh
+                                                        </label>
+                                                        <input type="radio" value="true" ng-model="detailSanPham.daXoa"
+                                                            ng-checked="detailSanPham.daXoa==true"
+                                                            class="form-check-input ms-3">
+                                                        <label class="form-check-label">
+                                                            Ngừng Kinh Doanh
+                                                        </label>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-warning"
+                                                            data-bs-dismiss="modal" id="liveToastBtn"
+                                                            ng-click="updateSanPham($event,detailSanPham.id)">Cập
+                                                            Nhật</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Số Lượng</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="sanPhamChiTiet in listSanPhamChiTiet">
+                                <tr>
+                                    <th>{{$index+1}}</th>
+                                    <th><img class="table_img"
+                                            ng-src="../../../assets/anh-san-pham/{{sanPhamChiTiet.duongDan}}"
+                                            alt="Không có ảnh"></th>
+                                    <th>{{sanPhamChiTiet.tenSanPham}} [
+                                        {{sanPhamChiTiet.tenMauSac}} - {{sanPhamChiTiet.tenKichThuoc}}
+                                        ]</th>
+                                    <th>{{sanPhamChiTiet.soLuong}}</th>
+                                    <th>{{sanPhamChiTiet.donGia | number}} VND</th>
+
+                                    <th ng-class="{' text-g ': !sanPhamChiTiet.daXoa
+                                    ,'text-glow':sanPhamChiTiet.daXoa}">
+                                        {{sanPhamChiTiet.daXoa?"Ngừng kinh
+                                        Doanh":"Đang Kinh Doanh"}}
+                                    </th>
+                                    <th data-toggle="tooltip" data-placement="top" title="Cập nhật">
+                                        <a ng-click="detailSanPhamChiTietF($event,sanPhamChiTiet.idSanPhamChiTiet);"
+                                            data-bs-toggle="modal" data-bs-target="#updateSanPhamChiTiet">
+                                            <i class="align-middle me-2 fas fa-fw fa-edit"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="listSanPhamChiTiet.length === 0">
+                            <p class="dataTables_empty_icon">
+                                <img src="../../../assets/anh-san-pham/empty-product.png" alt="">
+                            </p>
+                            <p class="dataTables_empty_lable">
+                                Không có dữ liệu
+                            </p>
+                        </div>
+                        <nav aria-label="Page navigation example" ng-if="listSanPhamChiTiet.length > 0">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" ng-click="previousPage()" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            << </span>
+                                    </a>
+                                </li>
+                                <li class="page-item" ng-repeat="page in visiblePages"
+                                    ng-class="{ 'active': page.active === 'active' }">
+                                    <a class="page-link" ng-click="changePage(page.page - 1)">{{ page.page
+                                        }}</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" ng-click="nextPage()"> >> </a>
+                                </li>
+                            </ul>
+                            <p>Tổng số trang: {{ totalPages.length }}</p>
+                        </nav>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <div class="modal fade" id="updateSanPhamChiTiet" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <form class="row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label class="form-label">Chất liệu</label>
+                                                        <select class="form-control"
+                                                            ng-model="detailSanPhamChiTiet.chatLieu.id">
+                                                            <option value="{{chatLieu.id}}"
+                                                                ng-repeat="chatLieu in listChatLieuTrangThai">
+                                                                {{chatLieu.ten}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Phong cách</label>
+                                                        <select class="form-control"
+                                                            ng-model="detailSanPhamChiTiet.phongCach.id">
+                                                            <option value="{{phongCach.id}}"
+                                                                ng-repeat="phongCach in listPhongCachTrangThai">
+                                                                {{phongCach.ten}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Họa tiết</label>
+                                                        <select class="form-control mb-3"
+                                                            ng-model="detailSanPhamChiTiet.hoaTiet.id">
+                                                            <option value="{{hoaTiet.id}}"
+                                                                ng-repeat="hoaTiet in listHoaTietTrangThai">
+                                                                {{hoaTiet.ten}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+
+                                                        <label class="form-label">Tay áo</label>
+                                                        <select class=" form-control"
+                                                            ng-model="detailSanPhamChiTiet.tayAo.id">
+                                                            <option value="{{tayAo.id}}"
+                                                                ng-repeat="tayAo in listTayAoTrangThai">
+                                                                {{tayAo.ten}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Cổ áo</label>
+                                                        <select class="form-control"
+                                                            ng-model="detailSanPhamChiTiet.coAo.id">
+                                                            <option class="form-control" value="{{coAo.id}}"
+                                                                ng-repeat="coAo in listCoAoTrangThai">
+                                                                {{coAo.ten}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label">Số lượng</label>
+                                                        <input type="number" class="form-control"
+                                                            ng-model="detailSanPhamChiTiet.soLuong">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Đơn giá</label>
+                                                        <input type="number" class="form-control"
+                                                            ng-model="detailSanPhamChiTiet.donGia">
+                                                    </div>
+                                                    <div class="col-md-12 mb-3">
+                                                        <label class="form-label">Hình ảnh</label>
+                                                        <div class="uploadfile">
+                                                            <label for="product-image">
+                                                                <img class="table_img"
+                                                                    ng-src="../../../assets/anh-san-pham/{{detailSanPhamChiTiet.urlImage}}">
+                                                                <input type="file" class="file-upload-input"
+                                                                    ng-model="detailSanPhamChiTiet.urlImage"
+                                                                    id="product-image"
+                                                                    data-mdb-file-upload="file-upload"
+                                                                    style="display: none" />
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="mb-3" class="form-check">
+                                                        <label class="form-label">Trạng thái</label><br>
+                                                        <input type="radio" value="false"
+                                                            ng-model="detailSanPhamChiTiet.daXoa"
+                                                            ng-checked="detailSanPhamChiTiet.daXoa==false"
+                                                            class="form-check-input ">
+                                                        <label class="form-check-label pr-4">
+                                                            Đang Kinh Doanh
+                                                        </label>
+                                                        <input type="radio" value="true"
+                                                            ng-model="detailSanPhamChiTiet.daXoa"
+                                                            ng-checked="detailSanPhamChiTiet.daXoa==true"
+                                                            class="form-check-input ms-3">
+                                                        <label class="form-check-label">
+                                                            Ngừng Kinh Doanh
+                                                        </label>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-warning"
+                                                            data-bs-dismiss="modal" id="liveToastBtn"
+                                                            ng-click="updateSanPhamChiTietF($event,detailSanPhamChiTiet.id)">Cập
+                                                            Nhật</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toast-container position-fixed top-0 end-0 p-3">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                                data-bs-delay="1100">
+                                <div class="toast-body">
+                                    <span class="success">
+                                        <i class="fa-solid fa-check fa-xl"></i>
+                                    </span>
+                                    <span class="message_error">
+                                        {{message}}
+                                    </span>
+                                    <div id="myProgress">
+                                        <div id="success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

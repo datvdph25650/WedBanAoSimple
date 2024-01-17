@@ -1,0 +1,503 @@
+.table_img {
+  height: 90px;
+  width: 90px;
+}
+
+.table thead tr th {
+  text-align: center;
+}
+
+
+
+.header-page {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#login {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.large_form {
+  margin-bottom: 20px;
+}
+
+.text {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.sitebox-recaptcha {
+  margin-bottom: 20px;
+}
+
+.custommer_account_action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action_bottom {
+  flex-grow: 1;
+}
+
+.btn-signin {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-signin:hover {
+  background-color: #45a049;
+}
+
+.req_pass {
+  text-align: right;
+}
+
+.req_pass a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.req_pass a:hover {
+  text-decoration: underline;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+}
+
+.remove-bullet {
+  list-style-type: none;
+  padding: 0;
+  /* Đặt padding về 0 để loại bỏ khoảng trắng */
+}
+
+.table tbody tr th {
+  text-align: center;
+}
+
+.custom-table {
+  text-align: center;
+}
+
+/* CSS để tùy chỉnh giao diện khi không có dữ liệu */
+.dataTables_empty_lable {
+  text-align: center;
+  font-size: 18px;
+  color: gray;
+}
+
+.file-upload-wrapper {
+  width: 100px;
+  /* Điều chỉnh chiều rộng theo ý muốn */
+  height: 100px;
+  /* Điều chỉnh chiều cao theo ý muốn */
+  border-radius: 50%;
+  /* Làm cho nút tròn */
+  overflow: hidden;
+  /* Đảm bảo nội dung không bị tràn ra ngoài */
+}
+
+.file-upload {
+  width: 100%;
+  /* Đảm bảo nút bên trong kích thước đúng */
+  height: 100%;
+  border-radius: 50%;
+}
+
+.input-container {
+  position: relative;
+}
+
+.form-control {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+  /* Màu và độ dày của gạch chân mặc định */
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-bottom 0.3s;
+  /* Hiệu ứng chuyển động khi thay đổi border-bottom */
+}
+
+.form-control:focus {
+  border-bottom: none;
+  /* Loại bỏ gạch chân khi ô input được focus */
+}
+
+.dataTables_empty_icon {
+  display: flex;
+  justify-content: center;
+  height: 200px;
+}
+
+.has-error {
+  color: red;
+}
+
+h4 {
+  text-align: center;
+}
+
+.page-item {
+  text-align: center;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#success {
+  width: 0%;
+  height: 10px;
+  background-color: #4caf50;
+}
+
+#error {
+  width: 0%;
+  height: 10px;
+  background-color: red;
+}
+
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+#dropDown {
+  position: absolute;
+  background-color: #f0f0f0;
+  z-index: 1000;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  cursor: pointer;
+  padding: 10px 5px;
+}
+
+#dropDown li {
+  /* margin: 10px; */
+  list-style: none;
+}
+
+#dropDown li:hover {
+  background-color: #fff;
+}
+
+#dropDownVoucher {
+  position: absolute;
+  background-color: #f0f0f0;
+  z-index: 1000;
+  width: 500px;
+  max-height: 200px;
+  overflow-y: auto;
+  cursor: pointer;
+  padding: 0px 0px;
+}
+
+#dropDownVoucher li {
+  /* margin: 10px; */
+  list-style: none;
+}
+
+#dropDownVoucher li:hover {
+  background-color: #fff;
+}
+
+.align-middle {
+  text-align: center;
+}
+
+.trang-thai {
+  background-color: green;
+}
+
+.custom-select {
+  background-color: #f2f2f2;
+  color: #333;
+  border: none;
+  padding: 5px;
+}
+
+/* Tạo một class cho option để tùy chỉnh chúng */
+.custom-option {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Tùy chỉnh option khi được hover */
+.custom-option:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Tạo một class cho select để tùy chỉnh nền và màu chữ */
+.custom-select {
+  background-color: #f2f2f2;
+  color: #333;
+  border: none;
+  padding: 5px;
+}
+
+/* Tạo một class cho option để tùy chỉnh chúng */
+.custom-option {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Tùy chỉnh option khi được hover */
+.custom-option:hover {
+  background-color: #fff;
+  color: #fff;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.checkbox-item {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.text-glow {
+  color: red;
+  /* Màu của văn bản */
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  /* Màu sáng, độ mờ và màu ánh sáng */
+}
+
+.text-g {
+  color: green;
+  /* Màu của văn bản */
+  text-shadow: 0 0 10px rgba(0, 255, 17, 0.5);
+  /* Màu sáng, độ mờ và màu ánh sáng */
+}
+
+.text-gl {
+  color: blue;
+  /* Màu của văn bản */
+  text-shadow: 0 0 10px rgba(0, 51, 255, 0.5);
+  /* Màu sáng, độ mờ và màu ánh sáng */
+}
+
+/* CSS cho phần header */
+.card-header {
+  background-color: #f11596;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+}
+
+/* CSS cho nút Thêm mới */
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* CSS cho bảng dữ liệu */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* CSS cho phân trang */
+.pagination {
+  margin: 0;
+  padding: 0;
+}
+
+.page-item {
+  list-style: none;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.page-link {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+}
+
+.page-link:hover {
+  background-color: #0056b3;
+}
+
+/* CSS cho ảnh nhân viên */
+img.employee-image {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+}
+
+/* CSS cho khung tìm kiếm và radio buttons */
+.search-and-radio-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 5px 10px;
+  transition: border-color 0.3s;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.search-icon {
+  margin-right: 10px;
+  color: #333;
+  font-size: 16px;
+}
+
+.radio-container {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  /* Điều chỉnh khoảng cách giữa khung tìm kiếm và radio buttons */
+}
+
+/* Thay đổi màu khi focus vào khung tìm kiếm */
+.search-container:focus-within {
+  border-color: #007bff;
+}
+
+/* Ẩn radio buttons */
+.radio-container input[type="radio"] {
+  display: none;
+}
+
+/* Tạo sự tương tác với label */
+.radio-container label {
+  padding: 5px 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+/* Tô màu khi radio được chọn */
+.radio-container input[type="radio"]:checked+label {
+  background-color: #ff000d;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Thay đổi màu khi hover vào label */
+.radio-container label:hover {
+  background-color: #2200ff;
+  color: #fff;
+}
+
+.no-data-message {
+  text-align: center;
+  /* Căn giữa theo chiều ngang */
+  margin-top: 50px;
+  /* Điều chỉnh khoảng cách từ trên xuống để căn giữa theo chiều dọc */
+  font-size: 100px;
+  /* Tùy chỉnh kích thước chữ */
+  color: red;
+  /* Tùy chỉnh màu sắc chữ */
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  /* Tạo hiệu ứng glow */
+}
+
+.merged-row td {
+  display: inline;
+  padding: 5px;
+}
+
+
+
+.anh_san_pham {
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+}
+
+.load_img {
+  text-align: center;
+}
+
+.file-upload-wrapper {
+  width: 100px;
+  /* Điều chỉnh chiều rộng theo ý muốn */
+  height: 200px;
+  /* Điều chỉnh chiều cao theo ý muốn */
+  border-radius: 50%;
+  /* Làm cho nút tròn */
+  overflow: hidden;
+  /* Đảm bảo nội dung không bị tràn ra ngoài */
+}
+
+.file-upload {
+  width: 100%;
+  /* Đảm bảo nút bên trong kích thước đúng */
+  height: 100%;
+  border-radius: 50%;
+}

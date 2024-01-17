@@ -1,0 +1,369 @@
+<main class="wrapperMain_content" ng-if="isLoggedIn==true">
+  <div id="layout-cart">
+    <div class="wrapper-mainCart">
+      <div class="content-bodyCart">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12 contentCart-detail">
+              <div class="mainCart-detail">
+                <div class="list-pageform-cart">
+                  <a href="#gio-hang"
+                    ><span
+                      ><i class="fas fa-arrow-left" style="color: black"></i
+                    ></span>
+                    <span style="color: black">Giỏ hàng</span></a
+                  >
+                  <form id="cartformpage">
+                    <br />
+                    <h5>Thông tin giao hàng</h5>
+                    <br />
+                    <br />
+                    <div class="mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        ng-model="hoaDonThanhToan.tenKhachHang"
+                        disabled
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <div class="row mb-3">
+                        <div class="col-md-8">
+                          <input
+                            type="email"
+                            placeholder="Email"
+                            class="form-control"
+                            ng-model="email"
+                            disabled
+                          />
+                        </div>
+                        <div class="col-md-4">
+                          <input
+                            type="text"
+                            class="form-control"
+                            ng-model="hoaDonThanhToan.soDienThoaiKhachHang"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          class="form-control"
+                          ng-model="hoaDonThanhToan.diaChiCuThe"
+                          disabled
+                        />
+                      </div>
+                      <div class="row mb-6">
+                        <div class="col-md-4">
+                          <label class="form-label">Tỉnh / Thành Phố</label>
+                          <div class="dropdown-container">
+                            <input
+                              type="text"
+                              ng-model="hoaDonThanhToan.tinhThanhPho"
+                              ng-click="toggleAPI($event,'ThanhPho')"
+                              class="form-control"
+                              disabled
+                            />
+                            <ul ng-show="showDropDownThanhPho" id="dropDown">
+                              <li
+                                ng-repeat="city in cityOptions"
+                                ng-model="hoaDonThanhToan.tinhThanhPho"
+                                ng-click="selectOptionThanhPho( city.name)"
+                              >
+                                {{city.name}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="form-label">Quận / Huyện</label>
+                          <div class="dropdown-container">
+                            <input
+                              type="text"
+                              ng-model="hoaDonThanhToan.quanHuyen"
+                              ng-click="toggleAPI($event,'QuanHuyen')"
+                              class="form-control"
+                              disabled
+                            />
+                            <ul ng-show="showDropDownQuanHuyen" id="dropDown">
+                              <li
+                                ng-repeat="district in districtOptions"
+                                ng-model="hoaDonThanhToan.quanHuyen"
+                                ng-click="selectOptionQuanHuyen( district.name)"
+                              >
+                                {{district.name}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="form-label">Phường / Xã </label>
+                          <div class="dropdown-container">
+                            <input
+                              type="text"
+                              ng-model="hoaDonThanhToan.phuongXa"
+                              ng-click="toggleAPI($event,'PhuongXa')"
+                              class="form-control"
+                              disabled
+                            />
+                            <ul ng-show="showDropDownPhuongXa" id="dropDown">
+                              <li
+                                ng-repeat="ward in wardOptions"
+                                ng-model="hoaDonThanhToan.phuongXa"
+                                ng-click="selectOptionPhuongXa( ward.name)"
+                                disabled
+                              >
+                                {{ward.name}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <a type="button" class="btn btn-secondary" href="#dia-chi"
+                        >Sửa địa chỉ</a
+                      >
+                    </div>
+                    <h5>Phương thức vận chuyển</h5>
+                    <div class="border">
+                      <div class="content-box blank-slate">
+                        <div class="row mb-3">
+                          <div><br /></div>
+
+                          <div class="col-md-1 text-center">
+                            <input
+                              class="input-radio"
+                              name="payment_method_id"
+                              type="radio"
+                              value="1002905878"
+                              checked=""
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <span class="radio-label-primary"
+                              >Ship tận nơi 30,000 VNĐ
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <h5>Phương thức thanh toán</h5>
+                    <div class="border">
+                      <div class="radio-input payment-method-checkbox">
+                        <div class="radio-content-input">
+                          <div class="row mb-3">
+                            <div><br /></div>
+
+                            <div class="col-md-1 text-center">
+                              <input
+                                class="input-radio"
+                                name="payment_method"
+                                type="radio"
+                                value="1002905878"
+                                checked=""
+                              />
+                            </div>
+                            <div class="col-md-8">
+                              <img
+                                class="main-img"
+                                src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=6"
+                              />
+
+                              <span class="radio-label-primary"
+                                >Thanh toán khi giao hàng (COD)</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      ng-click="addHoaDon($event)"
+                      ng-if="gioHangList.leght !=0 "
+                    >
+                      Hoàn tất đơn hàng
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 sidebarCart-sticky">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <h2 class="summary-title">Thông tin đơn hàng</h2>
+                  <form id="cartformpage">
+                    <div class="cart-row">
+                      <div class="table-cart" ng-repeat="item in gioHangList">
+                        <div
+                          class="media-line-item line-item"
+                          data-variant-id="1116772352"
+                          data-product-id="1051838542"
+                        >
+                          <div class="media-left">
+                            <div class="item-img">
+                              <img
+                                src="../../assets/anh-san-pham/{{item.duongDan}}"
+                                alt="8YO MÃ ĐÁO THÀNH CÔNG ART TEE"
+                              />
+                            </div>
+                          </div>
+                          <div class="media-right">
+                            <div class="item-info">
+                              <h3 class="item--title">
+                                <a
+                                  href="/products/8yo-ma-dao-thanh-cong-art-tee"
+                                >
+                                  {{item.tenSanPham}} {{item.tenChatLieu}}
+                                  {{item.tenPhongCach}} {{item.tenTayAo}}
+                                  {{item.tenCoAo}} {{item.tenHoaTiet}}</a
+                                >
+                              </h3>
+
+                              <div class="item--variant">
+                                <span>
+                                  {{item.tenMauSac}} /
+                                  {{item.tenKichThuoc}}</span
+                                >
+                              </div>
+                            </div>
+                            <div class="item-price">
+                              <p>
+                                <span> {{item.donGiaSp | number:0}}₫</span>
+
+                                <!-- <del>350,000₫</del> -->
+                              </p>
+                            </div>
+                          </div>
+                          <div class="media-total">
+                            <div class="item-total-price">
+                              <span class="line-item-total"
+                                >{{item.donGia}}₫</span
+                              >
+                            </div>
+
+                            <div class="item-qty">
+                              <div
+                                class="qty quantity-partent qty-click clearfix"
+                              >
+                                <input
+                                  ng-model="item.soLuong"
+                                  type="text"
+                                  size="4"
+                                  name="updates[]"
+                                  min="1"
+                                  class="tc line-item-qty item-quantity"
+                                  disabled
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                  <div class="">
+                    <div class="row">
+                      <div class="dropdown-container col-md-11 mb-4">
+                        <input
+                          type="text"
+                          ng-model="searchKeyword"
+                          placeholder="Tìm kiếm theo mã, tên"
+                          ng-click="toggleVoucher($event)"
+                          class="form-control"
+                        />
+                        <ul ng-show="showDropDownVoucher" id="dropDownVoucher">
+                          <li
+                            ng-repeat="maGiamGia in listMaGiamGia"
+                            ng-if="maGiamGia.giaTriDonToiThieu <= tongGiaTri && maGiamGia.soLuong>0"
+                            ng-click="selectedVoucher($index,maGiamGia)"
+                          >
+                            <span> {{maGiamGia.ma}} </span>
+                            <span style="float: right">
+                              {{maGiamGia.tenKM}}
+                            </span>
+                            <br />
+                            <span
+                              >Giảm: {{ maGiamGia.hinhThucGiam === 0 ?
+                              (maGiamGia.giaTriGiam | number) + ' VND' :
+                              maGiamGia.giaTriGiam + ' %' }}
+                            </span>
+                            <span style="float: right"
+                              >Số lượng: {{maGiamGia.soLuong}}</span
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="title">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <p>Tiền Hàng</p>
+                        <p>Phí Vận Chuyển</p>
+                        <p>Giảm Giá</p>
+                      </div>
+                      <div class="col-md-3"></div>
+                      <div class="col-md-4">
+                        <p>
+                          <span>{{tongGiaTri | number:0}}₫</span>
+                        </p>
+                        <p>{{'30,000 VNĐ' }}</p>
+                        <p>
+                          {{ giamGia ? (giamGia | number) + ' VNĐ' : '0 VNĐ' }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-summary-block order-summary-notify">
+                  <div class="summary-warning alert-order">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <p>Tổng Số Tiền</p>
+                      </div>
+                      <div class="col-md-3"></div>
+                      <div class="col-md-4">
+                        <p>
+                          <span>{{tongTienThanhToan | number:0}}₫ </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div
+      id="liveToast"
+      class="toast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      data-bs-delay="1100"
+    >
+      <div class="toast-body">
+        <span class="success" ng-show="showError==false">
+          <i class="fa-solid fa-check fa-xl"></i>
+        </span>
+        <span class="icon_error" ng-show="showError">
+          <i class="fa-solid fa-xmark fa-xl"></i>
+        </span>
+        <span class="message_error"> {{message}} </span>
+        <div id="myProgress">
+          <div id="success" ng-show="showError==false"></div>
+          <div id="error" ng-show="showError"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

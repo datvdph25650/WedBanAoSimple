@@ -1,0 +1,372 @@
+<main class="wrapperMain_content">
+  <div id="layout-cart">
+    <div class="wrapper-mainCart">
+      <div class="content-bodyCart">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12 sidebarCart-sticky">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form id="cartformpage">
+                    <div class="header-wrap">
+                      <div class="image-wrap">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="row">
+                              <div class="ms-4 mb-5">
+                                <div class="uploadfile">
+                                  <label for="product-image">
+                                    <i
+                                      ng-if="!list.anhDaiDien"
+                                      style="font-size: 70px"
+                                      class="fas fa-user-circle"
+                                      aria-hidden="true"
+                                    ></i>
+                                    <img
+                                      ng-if="list.anhDaiDien"
+                                      ng-src="../../assets/anh-nguoi-dung/{{list.anhDaiDien}}"
+                                      alt="Employee Image"
+                                      class="table_img"
+                                    />
+                                    <input
+                                      type="file"
+                                      multiple
+                                      class="file-upload-input"
+                                      id="product-image"
+                                      data-mdb-file-upload="file-upload"
+                                      style="display: none"
+                                    />
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-7">
+                            <div class="text-header">
+                              <p>Xin chào, {{list.hoTen}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-shopping-cart"></i> </span>
+                          <a class="text" href="#don-hang"> Đơn hàng của tôi</a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-user"></i> </span>
+                          <a class="text" href="#thong-tin">
+                            Thông tin cá nhân</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-map-marker-alt"></i> </span>
+                          <a class="text" href="#dia-chi"> Địa chỉ</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-8 content-children item-row">
+              <div>
+                <div class="card flex-fill">
+                  <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                      <h4 class="mb-4">Danh sách địa chỉ</h4>
+                      <div class="mb-4">
+                        <a
+                          ng-click="toggleDropdownNewAdress($event)"
+                          class="sidebar-link mb-4"
+                        >
+                          <i class="fa-solid fa-plus"></i>
+                          <span class="align-middle">Tạo địa chỉ mới</span>
+                        </a>
+                        <ul
+                          ng-show="newAdress"
+                          class="sidebar-dropdown list-unstyled"
+                        >
+                          <form>
+                            <div class="mb-3">
+                              <label class="form-label"
+                                >Họ tên <span style="color: red">*</span></label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                ng-model="form_dc.tenKhachHang"
+                              />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label"
+                                >Số điện thoại
+                                <span style="color: red">*</span></label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                ng-model="form_dc.soDienThoai"
+                              />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label"
+                                >Số nhà, tên đường
+                                <span style="color: red">*</span></label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                ng-model="form_dc.diaChiCuThe"
+                              />
+                            </div>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label class="form-label"
+                                  >Tỉnh thành phố
+                                  <span style="color: red">*</span></label
+                                >
+                                <select
+                                  name="tt"
+                                  id="city"
+                                  class="form-control"
+                                >
+                                  <option selected id="thanhpho"></option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label"
+                                  >Quận huyện
+                                  <span style="color: red">*</span></label
+                                >
+                                <select
+                                  class="form-control"
+                                  id="district"
+                                  name="qh"
+                                >
+                                  <option value="" selected></option>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label"
+                                  >Phường xã
+                                  <span style="color: red">*</span></label
+                                >
+                                <select
+                                  class="form-control"
+                                  id="ward"
+                                  name="px"
+                                >
+                                  <option value="" selected></option>
+                                </select>
+                              </div>
+                            </div>
+                          </form>
+                          <div class="row">
+                            <div class="form-check form-switch col-md-6 mt-4">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                role="switch"
+                                ng-model="form_dc.diaChiMacDinh"
+                                id="flexSwitchCheckDefault"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="flexSwitchCheckDefault"
+                                >Mặc định</label
+                              >
+                            </div>
+                            <div
+                              class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 col-md-6"
+                            >
+                              <a
+                                type="button"
+                                class="btn btn-primary"
+                                ng-click="addDiaChi($event)"
+                                >Thêm
+                              </a>
+                            </div>
+                          </div>
+                        </ul>
+                      </div>
+                      <div ng-repeat="(indexDiaChi,diaChi) in detailAdress">
+                        <a
+                          ng-click="toggleDropdown($event, indexDiaChi)"
+                          class="sidebar-link mb-4"
+                        >
+                          <span class="align-middle"
+                            >Địa chỉ {{indexDiaChi+1}}</span
+                          >
+                        </a>
+                        <ul
+                          ng-show="diaChi.isDropdownOpen"
+                          class="sidebar-dropdown list-unstyled"
+                        >
+                          <form>
+                            <div class="mb-3">
+                              <label class="form-label"
+                                >Họ tên <span style="color: red">*</span></label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                ng-model="diaChi.tenKhachHang"
+                              />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label"
+                                >Số điện thoại
+                                <span style="color: red">*</span></label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                ng-model="diaChi.soDienThoai"
+                              />
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label"
+                                >Địa chỉ cụ thể
+                                <span style="color: red">*</span></label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                ng-model="diaChi.diaChiCuThe"
+                              />
+                            </div>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label class="form-label"
+                                  >Tỉnh / Thành Phố</label
+                                >
+                                <div class="dropdown-container">
+                                  <input
+                                    type="text"
+                                    ng-model="diaChi.tinhThanhPho"
+                                    ng-click="toggleAPI($event,'ThanhPho')"
+                                    class="form-control"
+                                  />
+                                  <ul
+                                    ng-show="showDropDownThanhPho"
+                                    id="dropDown"
+                                  >
+                                    <li
+                                      ng-repeat="city in cityOptions"
+                                      ng-model="diaChi.tinhThanhPho"
+                                      ng-click="selectOptionThanhPho(indexDiaChi, city.name)"
+                                    >
+                                      {{city.name}}
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label">Quận / Huyện</label>
+                                <div class="dropdown-container">
+                                  <input
+                                    type="text"
+                                    ng-model="diaChi.quanHuyen"
+                                    ng-click="toggleAPI($event,'QuanHuyen')"
+                                    class="form-control"
+                                  />
+                                  <ul
+                                    ng-show="showDropDownQuanHuyen"
+                                    id="dropDown"
+                                  >
+                                    <li
+                                      ng-repeat="district in districtOptions"
+                                      ng-model="diaChi.quanHuyen"
+                                      ng-click="selectOptionQuanHuyen(indexDiaChi, district.name)"
+                                    >
+                                      {{district.name}}
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label">Phường / Xã </label>
+                                <div class="dropdown-container">
+                                  <input
+                                    type="text"
+                                    ng-model="diaChi.phuongXa"
+                                    ng-click="toggleAPI($event,'PhuongXa')"
+                                    class="form-control"
+                                  />
+                                  <ul
+                                    ng-show="showDropDownPhuongXa"
+                                    id="dropDown"
+                                  >
+                                    <li
+                                      ng-repeat="ward in wardOptions"
+                                      ng-model="diaChi.phuongXa"
+                                      ng-click="selectOptionPhuongXa(indexDiaChi, ward.name)"
+                                    >
+                                      {{ward.name}}
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                          <div class="row">
+                            <div class="form-check form-switch col-md-6 mt-4">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                role="switch"
+                                ng-model="diaChi.diaChiMacDinh"
+                                id="flexSwitchCheckDefault"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="flexSwitchCheckDefault"
+                                >Mặc định</label
+                              >
+                            </div>
+                            <div
+                              class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 col-md-6"
+                            >
+                              <a
+                                type="button"
+                                class="btn btn-warning"
+                                ng-click="updateDiaChi(indexDiaChi,$event,diaChi.id)"
+                                >Cập nhật
+                              </a>
+                            </div>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  .table_img {
+    width: 70px; /* Đặt chiều rộng mong muốn */
+    height: 70px; /* Đặt chiều cao mong muốn, nên giữ chiều rộng và chiều cao bằng nhau */
+    border-radius: 80%;
+    object-fit: cover; /* Tùy chọn, giữ tỷ lệ khung hình khi ảnh không phải là hình vuông */
+  }
+</style>

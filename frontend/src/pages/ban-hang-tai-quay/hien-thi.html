@@ -1,0 +1,1040 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="card flex-fill">
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <h4 class="mb-4">BÁN HÀNG TẠI QUẦY</h4>
+                        <div class="container mb-5">
+                            <ul class="nav nav-tabs">
+                                <li ng-repeat="hoaDon in listHoaDon" class="nav-item">
+                                    <a ng-click="selectTab(hoaDon,hoaDon.id,hoaDon.ma)" class="nav-link"
+                                        ng-class="{ 'active': isSelectedTab(hoaDon) }">
+                                        {{ hoaDon.ma }}
+                                    </a>
+                                </li>
+                                <button class="nav-link" type="button" role="tab" ng-click="addHoaDon($event)">
+                                    Thêm hóa đơn
+                                </button>
+                            </ul>
+                            <div ng-if="addSanPham" class=" d-grid gap-2 d-md-flex justify-content-md-end">
+                                <!-- 
+                                <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#quetQR">
+                                    Quét Qr Code
+                                </button> -->
+                                <button class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                    data-bs-target="#addSanPham">
+                                    Thêm Sản Phẩm
+                                </button>
+                            </div>
+                            <div class="tab-content mt-2">
+                                <div ng-repeat="hoaDon in listHoaDon" class="tab-pane"
+                                    ng-class="{ 'active': isSelectedTab(hoaDon) }">
+                                    <table class="table align-self-center">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Ảnh sản phẩm</th>
+                                                <th scope="col">Tên sản phẩm</th>
+                                                <th scope="col">Số lượng</th>
+                                                <th scope="col">Đơn giá</th>
+                                                <th scope="col">Thành tiền</th>
+                                                <th scope="col">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="hoaDonChiTiet in listHoaDonChiTiet">
+                                            <tr>
+                                                <th scope="row">{{customIndex+$index+1}}</th>
+                                                <th scope="row"><img class="table_img"
+                                                        ng-src="../../../assets/anh-san-pham/{{hoaDonChiTiet.duongDan}}"
+                                                        alt="Không có ảnh">
+                                                </th>
+                                                <th scope="row">{{hoaDonChiTiet.tenSanPham}} [
+                                                    {{hoaDonChiTiet.tenMauSac}} -
+                                                    {{hoaDonChiTiet.tenKichThuoc}} ]</th>
+                                                <th scope="row">
+                                                    <input type="number" ng-model="hoaDonChiTiet.soLuong"
+                                                        ng-change="changeSoLuong(hoaDonChiTiet.idSanPhamChiTiet,$index)"
+                                                        class="form-control form-control-sm"
+                                                        style="width: 100px; height: 30px;" />
+                                                </th>
+                                                <th scope="row">{{hoaDonChiTiet.donGia | number}} VND</th>
+                                                <th scope="row">{{hoaDonChiTiet.thanhTien | number}} VND</th>
+
+                                                <th data-toggle="tooltip" data-placement="top" title="Xóa">
+                                                    <a ng-click="xoaSanPhamGioHang(hoaDonChiTiet.idHoaDonChiTiet)">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </a>
+
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div ng-if="listHoaDonChiTiet.length === 0">
+                                        <p class="dataTables_empty_icon">
+                                            <img src="../../../assets/anh-san-pham/empty-product.png" alt="">
+                                        </p>
+                                        <p class="dataTables_empty_lable">
+                                            Không có dữ liệu
+                                        </p>
+                                    </div>
+                                    <nav aria-label="Page navigation example" ng-if="listHoaDonChiTiet.length > 0">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link" ng-click="previousPageHDCT()"
+                                                    aria-label="Previous">
+                                                    <span aria-hidden="true">
+                                                        << </span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item" ng-repeat="page in visiblePages"
+                                                ng-class="{ 'active': page.active === 'active' }">
+                                                <a class="page-link" ng-click="changePageHDCT(page.page - 1)">{{
+                                                    page.page
+                                                    }}</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" ng-click="nextPageHDCT()"> >> </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div class="modal fade" id="addSanPham" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+                                            <h4 class="p-3">DANH SÁCH SẢN PHẨM </h4>
+                                            <div class="wrapper_layered_filter ms-3">
+                                                <div class="layered_filter_parent ">
+                                                    <div class="layered_filter_container">
+                                                        <div class="layered_filter_group">
+                                                            <div class="row ">
+                                                                <div class="search-container col-md-5 ms-3">
+                                                                    <i class="fas fa-search search-icon"></i>
+                                                                    <input type="text" ng-model="searchKeyword"
+                                                                        placeholder="Tìm kiếm sản phẩm theo tên"
+                                                                        ng-change="search()" class="search-input" />
+                                                                </div>
+                                                                <div class="filter_group col-md-3 col-sm-12  col-xs-12"
+                                                                    aria-expanded="false">
+                                                                    <div class="filter_group_block">
+                                                                        <div class="filter_group-subtitle"><span>Màu
+                                                                                sắc</span>
+                                                                            <span class="icon-control"><i
+                                                                                    class="fa fa-chevron-down"
+                                                                                    aria-hidden="true"></i></span>
+                                                                        </div>
+                                                                        <div class="filter_group-content filter-color">
+                                                                            <ul class="checkbox-list ">
+                                                                                <li ng-repeat="mauSac in listMauSac">
+                                                                                    <input type="checkbox"
+                                                                                        id="{{mauSac.ma}}"
+                                                                                        ng-click="locSanPhamTheoMau($index)" />
+                                                                                    <label for="{{mauSac.ma}}"
+                                                                                        ng-value="mauSac.ten"
+                                                                                        ng-style="{ 'background-color': mauSac.ma }"></label>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="filter_group col-md-3 col-sm-12  col-xs-12"
+                                                                    aria-expanded="false">
+                                                                    <div class="filter_group_block">
+                                                                        <div class="filter_group-subtitle">
+                                                                            <span>Kích
+                                                                                thước</span>
+                                                                            <span class="icon-control"><i
+                                                                                    class="fa fa-chevron-down"
+                                                                                    aria-hidden="true"></i></span>
+                                                                        </div>
+                                                                        <div class="filter_group-content filter-size">
+                                                                            <ul class="checkbox-list">
+                                                                                <li
+                                                                                    ng-repeat="kichThuoc in listKichThuoc">
+                                                                                    <input type="checkbox"
+                                                                                        id="{{kichThuoc.ma}}"
+                                                                                        ng-click="locSanPhamTheoKichThuoc($index)" />
+                                                                                    <label
+                                                                                        for="{{kichThuoc.ma}}">{{kichThuoc.ten}}</label>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Ảnh Đại Diện</th>
+                                                            <th scope="col">Tên Sản Phẩm</th>
+                                                            <th scope="col">Số Lượng</th>
+                                                            <th scope="col">Đơn Giá</th>
+                                                            <th scope="col">Thao Tác</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-repeat="sanPhamChiTiet in listSanPhamChiTiet ">
+                                                        <tr>
+                                                            <th scope="row">{{ customIndex+$index+1}}</th>
+                                                            <th scope="row"><img class="table_img"
+                                                                    ng-src="../../../assets/anh-san-pham/{{sanPhamChiTiet.duongDan}}"
+                                                                    alt="Không có ảnh"></th>
+                                                            <th scope="row">{{sanPhamChiTiet.tenSanPham}}
+                                                                [{{sanPhamChiTiet.tenMauSac}}
+                                                                - {{sanPhamChiTiet.tenKichThuoc}}]</th>
+                                                            <th scope="row">{{sanPhamChiTiet.soLuong}}</th>
+                                                            <th scope="row">{{sanPhamChiTiet.donGia | number}} VND</th>
+
+                                                            <th>
+
+                                                                <a type="button" class="btn btn-warning "
+                                                                    data-bs-dismiss="modal"
+                                                                    ng-click="addSanPhamChiTiet(sanPhamChiTiet.idSanPhamChiTiet,$index)">Chọn</a>
+
+                                                            </th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div ng-if="listSanPhamChiTiet.length===0">
+                                                    <p class="dataTables_empty_icon">
+                                                        <img src="../../../assets/anh-san-pham/empty-product.png"
+                                                            alt="">
+                                                    </p>
+                                                    <p class="dataTables_empty_lable">
+                                                        Không có sản phẩm nào
+                                                    </p>
+                                                </div>
+                                                <nav aria-label="Page navigation example "
+                                                    ng-if="listSanPhamChiTiet.length!==0">
+                                                    <ul class="pagination justify-content-center">
+                                                        <li class="page-item">
+                                                            <a class="page-link" ng-click="previousPage()">
+                                                                <span aria-hidden="true">
+                                                                    << </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item"
+                                                            ng-repeat="page in totalPages track by $index"
+                                                            ng-class="{'active': $index === currentPage} "
+                                                            ng-click="changePage($index);">
+                                                            <a class="page-link">{{$index+1}}</a>
+                                                        </li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" ng-click="nextPage()">>></a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div class="modal fade" id="quetQR" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <video id="scanner" width="640" height="480"></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="card flex-fill">
+                    <div class="card-body d-flex">
+                        <div class="align-self-center w-100">
+                            <h5>Khách Hàng</h5>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    ng-click="getKhachHangByTrangThai($event)" data-bs-target="#addTaiKhoan">Chọn khách
+                                    hàng</a>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Tên Khách Hàng
+                                </div>
+                                <div class="col-md-4">
+                                    <span>
+                                        <input ng-disabled="true" ng-model="hoaDonThanhToan.tenKhachHang"
+                                            style="border: none" type="text">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div class="modal fade" id="addTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h4>Danh sách khách hàng</h4>
+                                <div class="row p-3">
+                                    <div class="search-container col-md-5">
+                                        <i class="fas fa-search search-icon"></i>
+                                        <input type="text" ng-model="searchKeyword"
+                                            placeholder="Tìm kiếm khách hàng theo mã, tên" ng-change="searchKhachHang()"
+                                            class="search-input" />
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Ảnh </th>
+                                            <th scope="col">Mã Khách Hàng</th>
+                                            <th scope="col">Tên Khách Hàng</th>
+                                            <th scope="col">Số Điện Thoại</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Giới Tính</th>
+                                            <th scope="col">Thao Tác</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="khachHang in listKhachHang">
+                                        <tr>
+                                            <th scope="row">{{$index+1}}</th>
+                                            <th>
+                                                <img class="table_img"
+                                                    ng-src="../../../assets/anh-nguoi-dung/{{khachHang.anhDaiDien}}"
+                                                    alt="">
+                                            </th>
+                                            <th scope="row">{{khachHang.ma}}</th>
+                                            <th scope="row">{{khachHang.hoTen}}</th>
+                                            <th scope="row">{{khachHang.soDienThoai}}</th>
+                                            <th scope="row">{{khachHang.email}}</th>
+                                            <th scope="row">{{khachHang.gioiTinh ?'Nam':'Nữ'}} </th>
+
+                                            <th>
+                                                <button type="button" ng-click="addKhachHang($event, khachHang.id)"
+                                                    class="btn btn-primary" data-bs-dismiss="modal">
+                                                    Chọn
+                                                </button>
+
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div class="modal fade" id="danhSachDiaChi" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h4>Danh sách địa chỉ</h4>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tên Khách Hàng</th>
+                                            <th scope="col">Số Điện Thoại</th>
+                                            <th scope="col">Số nhà, ngõ</th>
+                                            <th scope="col">Tỉnh, thành phố</th>
+                                            <th scope="col">Quận, huyện</th>
+                                            <th scope="col">Phường, xã</th>
+                                            <th scope="col">Thao Tác</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="diaChi in listDiaChi">
+                                        <tr>
+                                            <th scope="row">{{$index+1}}</th>
+
+                                            <th scope="row">{{diaChi.tenKhachHang}}</th>
+                                            <th scope="row">{{diaChi.soDienThoai}}</th>
+                                            <th scope="row">{{diaChi.diaChiCuThe}}</th>
+                                            <th scope="row">{{diaChi.tinhThanhPho}}</th>
+                                            <th scope="row">{{diaChi.quanHuyen}}</th>
+                                            <th scope="row">{{diaChi.phuongXa}}</th>
+                                            <th>
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                                    ng-click="thayDoiDiaChi($event,diaChi.id)">Chọn</button>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="card flex-fill">
+                    <div class="card-body d-flex">
+                        <div class="align-self-center w-100">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <form ng-if="show">
+                                        <h4>Thông tin khách Hàng</h4>
+                                        <div class="mb-3">
+                                            <label class="form-label">Họ Và Tên</label>
+                                            <input type="text" class="form-control"
+                                                ng-model="hoaDonThanhToan.tenKhachHang">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Số Điện Thoại</label>
+                                            <input type="text" class="form-control"
+                                                ng-model="hoaDonThanhToan.soDienThoaiKhachHang">
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="mb-3">
+                                                <label class="form-label">Số nhà, ngõ</label>
+                                                <input type="text" class="form-control"
+                                                    ng-model="hoaDonThanhToan.diaChiCuThe">
+                                            </div>
+                                            <div class="row mb-6">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Tỉnh / Thành Phố</label>
+                                                    <div class="dropdown-container">
+                                                        <input type="text" ng-model="hoaDonThanhToan.tinhThanhPho"
+                                                            ng-click="toggleAPI($event,'ThanhPho')"
+                                                            class="form-control">
+                                                        <ul ng-show="showDropDownThanhPho" id="dropDown">
+                                                            <li ng-repeat="city in cityOptions"
+                                                                ng-model="hoaDonThanhToan.tinhThanhPho"
+                                                                ng-click="selectOptionThanhPho( city.name)">
+                                                                {{city.name}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Quận / Huyện</label>
+                                                    <div class="dropdown-container">
+                                                        <input type="text" ng-model="hoaDonThanhToan.quanHuyen"
+                                                            ng-click="toggleAPI($event,'QuanHuyen')"
+                                                            class="form-control">
+                                                        <ul ng-show="showDropDownQuanHuyen" id="dropDown">
+                                                            <li ng-repeat="district in districtOptions"
+                                                                ng-model="hoaDonThanhToan.quanHuyen"
+                                                                ng-click="selectOptionQuanHuyen( district.name)">
+                                                                {{district.name}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Phường / Xã </label>
+                                                    <div class="dropdown-container">
+                                                        <input type="text" ng-model="hoaDonThanhToan.phuongXa"
+                                                            ng-click="toggleAPI($event,'PhuongXa')"
+                                                            class="form-control">
+                                                        <ul ng-show="showDropDownPhuongXa" id="dropDown">
+                                                            <li ng-repeat="ward in wardOptions"
+                                                                ng-model="hoaDonThanhToan.phuongXa"
+                                                                ng-click="selectOptionPhuongXa( ward.name)">
+                                                                {{ward.name}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button ng-if="chonKhachHang" data-bs-toggle="modal"
+                                                ng-click="getDiaChiByKhachHang($event)" data-bs-target="#danhSachDiaChi"
+                                                class="btn btn-primary">Địa chỉ
+                                                khác</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="col-md-5">
+                                    <h4 class="mb-4">Thông Tin Thanh Toán</h4>
+
+                                    <div class="form-check form-switch mb-4">
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="show"
+                                            id="flexSwitchCheckDefault" ng-click="giaoHang()">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Giao Hàng</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="dropdown-container col-md-11 mb-4">
+                                            <input type="text" ng-model="searchVoucher" placeholder="Chọn mã giảm giá"
+                                                ng-click="toggleVoucher($event)" class="form-control" />
+                                            <ul ng-show="showDropDownVoucher" id="dropDownVoucher">
+                                                <li ng-repeat="maGiamGia in listMaGiamGia"
+                                                    ng-if="maGiamGia.giaTriDonToiThieu <= tienHang && maGiamGia.soLuong>0"
+                                                    ng-click="selectedVoucher($index,maGiamGia)">
+                                                    <span>
+                                                        {{maGiamGia.ma}}
+                                                    </span>
+                                                    <span style="float: right;">
+                                                        {{maGiamGia.tenKM}}
+                                                    </span>
+                                                    <br>
+                                                    <span>Giảm:
+                                                        {{ maGiamGia.hinhThucGiam === 0 ?
+                                                        (maGiamGia.giaTriGiam | number) + ' VND' :
+                                                        maGiamGia.giaTriGiam + ' %'
+                                                        }}
+                                                    </span>
+                                                    <span style="float: right;">Số lượng:
+                                                        {{maGiamGia.soLuong}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <p>Tiền Hàng</p>
+                                            <p ng-if="show">Phí Vận Chuyển</p>
+                                            <p>Giảm Giá</p>
+                                            <p>Tổng Số Tiền</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>{{ tienHang ? (tienHang | number) + ' VNĐ' : '0 VNĐ' }}
+                                            </p>
+                                            <p ng-if="show">{{ phiVanChuyen ? (phiVanChuyen | number) + ' VNĐ' : '0 VNĐ'
+                                                }}</p>
+                                            <p> {{ giamGia ? (giamGia | number) + ' VNĐ' : '0 VNĐ' }}</p>
+                                            <p>{{ tongTien ? (tongTien | number) + ' VNĐ' : '0 VNĐ' }}
+                                        </div>
+                                    </div>
+                                    <!-- <div class="select-swatch clearfix">
+                                        <div class="swatch">
+                                            <div class="select-swap">
+                                                <div class="swatch-element"
+                                                    ng-repeat="method in ['Tiền mặt', 'Chuyển khoản']"
+                                                    ng-click="hinhThucThanhToan(method)">
+                                                    <input ng-model="searchHinhThucThanhToan" type="radio"
+                                                        value="{{method}}" />
+                                                    <label
+                                                        ng-class="{ 'sd': searchHinhThucThanhToan === method, 'other-class': searchHinhThucThanhToan !== method }">
+                                                        <span>{{method}}</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <button class="btn btn-primary " ng-click="thanhToan($event)">Thanh
+                                            Toán</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                data-bs-delay="1100">
+                <div class="toast-body">
+                    <span class="success" ng-show="showError==false">
+                        <i class="fa-solid fa-check fa-xl"></i>
+                    </span>
+                    <span class="icon_error" ng-show="showError">
+                        <i class="fa-solid fa-xmark fa-xl"></i>
+                    </span>
+                    <span class="message_error">
+                        {{message}}
+                    </span>
+                    <div id="myProgress">
+                        <div id="success" ng-show="showError==false"></div>
+                        <div id="error" ng-show="showError"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+<style>
+    .dropdown-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    #dropDownVoucher {
+        position: absolute;
+        background-color: #f0f0f0;
+        z-index: 1000;
+        width: 410px;
+        max-height: 200px;
+        overflow-y: auto;
+        cursor: pointer;
+        /* padding: 0px 0px; */
+    }
+
+    #dropDown {
+        position: absolute;
+        background-color: #f0f0f0;
+        z-index: 1000;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        cursor: pointer;
+        padding: 10px 5px;
+    }
+
+    #dropDown li {
+        /* margin: 10px; */
+        list-style: none;
+    }
+
+    #dropDown li:hover {
+        background-color: #fff;
+    }
+
+    #dropDownVoucher li {
+        /* margin: 10px; */
+        list-style: none;
+    }
+
+    #dropDownVoucher li:hover {
+        background-color: #fff;
+    }
+
+    .select-swatch .swatch .select-swap {
+        display: flex;
+    }
+
+    .select-swatch .swatch input {
+        display: none;
+    }
+
+    .select-swatch .swatch .swatch-element {
+        display: flex;
+        position: relative;
+        vertical-align: bottom;
+        padding: 20px 0px;
+    }
+
+    .select-swatch .swatch .swatch-element .selected {
+        margin: 0;
+        padding: 7px 10px;
+        font-size: 20px;
+        color: var(--shop-color-main);
+        background-color: #f2f2f2;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-align: center;
+        margin-right: 50px;
+        margin-left: 35px;
+        cursor: pointer;
+
+    }
+
+    .select-swatch .swatch .swatch-element .selected span {
+        position: relative;
+        z-index: 2;
+        display: block;
+        color: #242424;
+    }
+
+    .select-swatch .swatch .swatch-element .selected .sd {
+        border: 1px solid var(--shop-color-main);
+        background-color: rgba(72, 137, 201, 0.06);
+    }
+
+    .wrapper_layered_filter {
+        margin-bottom: 0;
+    }
+
+    .wrapper_layered_filter .layered_filter_title {
+        text-transform: uppercase;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter {
+        margin: 0;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter:after {
+        content: "";
+        width: 1px;
+        height: 20px;
+        background: var(--shop-color-border);
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 20px;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter .icon-filter {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter .icon-filter svg {
+        width: 20px;
+        height: 30px;
+        fill: #909097;
+        stroke: #909097;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .close_filter {
+        display: none;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 15px);
+        z-index: 5;
+        border: 0;
+        background: transparent;
+        text-align: center;
+        outline: none;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .close_filter svg {
+        width: 16px;
+        height: 30px;
+    }
+
+    .wrapper_layered_filter .layered_filter_container {
+        margin-bottom: 5px;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .wrapper_layered_filter .layered_filter_container .layered_filter_group {
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        width: 1%;
+    }
+
+    .wrapper_layered_filter .layered_filter_container .layered_filter_title {
+        display: inline-block;
+        max-width: 30%;
+    }
+
+    .wrapper_layered_filter .layered_filter_container .layered_filter_bottom {
+        display: none;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group_block {
+        position: relative;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group-subtitle {
+        position: relative;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 15px;
+        background: #fff;
+        border: 1px solid var(--shop-color-border);
+        cursor: pointer;
+        border-radius: 0px;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group-subtitle span.icon-control {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 5px;
+        margin: auto;
+        font-size: 10px;
+        vertical-align: 1px;
+        display: inline-block;
+        -webkit-transition: transform 0.3s;
+        -moz-transition: transform 0.3s;
+        -o-transition: transform 0.3s;
+        transition: transform 0.3s;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group-content {
+        padding: 10px 15px;
+        background: #ffffff;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags {
+        position: relative;
+        border-radius: 12px;
+        margin: 8px 8px 0px 0;
+        color: #5d5d5d;
+        background: #fff;
+        border: 1px solid #dadada;
+        font-size: 13px;
+        display: none;
+        padding: 2px 32px 3px 10px;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags span.filter_tags_remove {
+        position: absolute;
+        right: 8px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags span.filter_tags_remove svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags.opened {
+        display: inline-block;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags.filter_tags_remove_all {
+        cursor: pointer;
+        border: 0;
+        padding-left: 8px;
+        padding-right: 8px;
+        background: transparent;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags.filter_tags_remove_all span {
+        color: var(--shop-color-hover);
+        border-bottom: 1px solid var(--shop-color-hover);
+    }
+
+    @media (min-width: 992px) {
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby {
+            display: none;
+        }
+
+        .wrapper_layered_filter .filter_group .filter_group-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0;
+            top: calc(100% + 10px);
+            z-index: 100;
+            border: 1px solid var(--shop-color-border);
+            border-top: 0;
+            pointer-events: none;
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper_layered_filter .filter_group .filter_group_block:hover .filter_group-content {
+            pointer-events: auto;
+            visibility: visible;
+            top: 100%;
+            opacity: 1;
+        }
+
+        .wrapper_layered_filter .filter_group .filter_group_block:hover .filter_group-subtitle span.icon-control {
+            color: #666;
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    }
+
+    @media (max-width: 991px) {
+        .wrapper_layered_filter {
+            margin: 0;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent {
+            display: none;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent .overlays-rgba {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .wrapper_layered_filter .layered_filter_container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100%;
+            max-height: 100%;
+            bottom: 0;
+            background: #ffffff;
+            margin: 0;
+            overflow: hidden;
+            -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-transition: transform 0.4s ease;
+            transition: transform 0.4s ease;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title {
+            position: relative;
+            width: 100%;
+            display: block;
+            max-width: 100%;
+            padding: 12px 50px 12px 15px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .close_filter {
+            display: block;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter {
+            font-size: 16px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter:after {
+            display: none;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter .icon-filter {
+            width: 22px;
+            height: 22px;
+            margin-top: -2px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter .icon-filter svg {
+            width: 22px;
+            height: 100%;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_group {
+            -ms-flex: 0 0 auto;
+            flex: 1 1 auto;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            overflow-x: hidden;
+            padding: 10px 15px 10px;
+            border-top: 1px solid var(--shop-color-border);
+            border-bottom: 1px solid var(--shop-color-border);
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom {
+            width: 100%;
+            padding: 10px 5px 12px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom .btn-filter {
+            margin: 0 6px;
+            -ms-flex: 0 0 calc(50% - 12px);
+            flex: 0 0 calc(50% - 12px);
+            max-width: calc(50% - 12px);
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: 1px;
+            outline: none;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom .btn-filter-apply {
+            color: #ffffff;
+            background-color: var(--shop-color-button);
+            border: 1px solid var(--shop-color-button);
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom .btn-filter-clear {
+            color: #000000;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group+.filter_group .filter_group_block {
+            border-top: 1px solid var(--shop-color-border);
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group.filter_sortby {
+            display: block;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-subtitle span.icon-control {
+            display: none;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-subtitle {
+            border: 0;
+            font-size: 14px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-subtitle,
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-content {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .wrapper_layered_filter .layered_filter_tags {
+            display: none;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.show-filter .layered_filter_container {
+            pointer-events: auto;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-transition-delay: 0.1s;
+            transition-delay: 0.1s;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.show-filter .overlays-rgba {
+            pointer-events: auto;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby .layered_filter_container {
+            height: auto;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby .layered_filter_container {
+            border-radius: 16px 16px 0 0;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby .filter_sortby .filter_group-subtitle {
+            display: none;
+        }
+    }
+</style>

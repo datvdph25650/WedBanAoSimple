@@ -1,0 +1,102 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="card flex-fill">
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <h4 class="form-label mb-4">CẬP NHẬT MÃ GIẢM GIÁ </h4>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Mã <span style="color: red">*</span>:</label>
+                                    <input type="text" class="form-control" disabled ng-model="detailMaGiamGia.ma"
+                                        required>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputTen" class="form-label">Tên <span
+                                            style="color: red">*</span>:</label>
+                                    <input type="text" class="form-control" id="inputTen"
+                                        ng-model="detailMaGiamGia.tenKM" required>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Hình thức<span style="color: red">*</span>:</label>
+                                    <select class="form-control" ng-model="detailMaGiamGia.hinhThucGiam">
+                                        <option ng-selected="detailMaGiamGia.hinhThucGiam===0" value="0">Tiền mặt
+                                        </option>
+                                        <option ng-selected="detailMaGiamGia.hinhThucGiam===1" value="1">Phần trăm
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputSlm" class="form-label">Số lượng
+                                        <span style="color: red">*</span>:</label>
+                                    <input type="number" class="form-control" id="inputSlm"
+                                        ng-model="detailMaGiamGia.soLuong">
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputGTDToiThieu" class="form-label">Giá
+                                        trị đơn tối
+                                        thiểu <span style="color: red">*</span>:</label>
+                                    <input type="number" class="form-control" id="inputGTDToiThieu"
+                                        ng-model="detailMaGiamGia.giaTriDonToiThieu" required>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputGTD" class="form-label">Giá trị giảm
+                                        <span style="color: red">*</span>:</label>
+                                    <input type="number" class="form-control" id="inputGTD"
+                                        ng-model="detailMaGiamGia.giaTriGiam" required>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputNbd" class="form-label">Ngày bắt đầu
+                                        <span style="color: red">*</span>:</label>
+                                    <input type="datetime-local"
+                                        onfocus="this.min = new Date().toISOString().split(':')[0] + ':' + new Date().toISOString().split(':')[1]"
+                                        class="form-control" id="inputNbd" ng-model="detailMaGiamGia.ngayBatDau"
+                                        required>
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="inputNkt" class="form-label">Ngày kết thúc
+                                        <span style="color: red">*</span>:</label>
+                                    <input type="datetime-local"
+                                        onfocus="this.min = new Date().toISOString().split(':')[0] + ':' + new Date().toISOString().split(':')[1]"
+                                        class="form-control" id="inputNkt" ng-model="detailMaGiamGia.ngayKetThuc"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a type="button" class="btn btn-primary" id="liveToastBtn" ng-click="update($event)">Cập
+                                    nhật</a>
+                                <a type="button" class="btn btn-warning" href="#/ma-giam-gia/hien-thi">Quay
+                                    lại</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1100">
+            <div class="toast-body">
+                <span class="icon_error">
+                    <i class="fa-solid fa-xmark fa-xl"></i>
+                </span>
+                <span class="message_error">
+                    {{message}}
+                </span>
+                <div id="myProgress">
+                    <div id="error"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

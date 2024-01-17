@@ -1,0 +1,171 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="card flex-fill">
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <h4 class="pb-5">DANH SÁCH MÃ GIẢM GIÁ </h4>
+                        <div class="row pb-4 pr-2">
+                            <div class="search-container col-md-9">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" ng-model="searchKeyword"
+                                    placeholder="Tìm kiếm mã giảm giá theo mã, tên" ng-change="search()"
+                                    class="search-input" />
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <a type="button" class="btn btn-primary" href="#ma-giam-gia/add">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Thêm Mã Giảm Giá
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-3" class="form-check">
+                            <label class="form-label">Trạng thái</label><br>
+
+                            <input type="radio" class="form-check-input " ng-click="getMaTrangThai()" name="trang_thai"
+                                checked>
+                            <label class="form-check-label">
+                                Tất cả
+                            </label>
+                            <input type="radio" class="form-check-input ms-3" name="trang_thai" ng-value="1"
+                                ng-change="loc()" ng-model="selectOption">
+                            <label class="form-check-label">
+                                Sắp diễn ra
+                            </label>
+                            <input type="radio" class="form-check-input ms-3" name="trang_thai" ng-value="2"
+                                ng-model="selectOption" ng-change="loc()">
+                            <label class="form-check-label">
+                                Đang diễn ra
+                            </label>
+                            <input type="radio" class="form-check-input ms-3" name="trang_thai" ng-value="3"
+                                ng-model="selectOption" ng-change="loc()">
+                            <label class="form-check-label">
+                                Đã kết thúc
+                            </label>
+
+                        </div>
+                        <div class="mb-3" class="form-check">
+                            <label class="form-label">Hình thức</label><br>
+                            <input type="radio" class="form-check-input " ng-click="getMaHinhThuc()" name="hinh_thuc"
+                                checked>
+                            <label class="form-check-label">
+                                Tất cả
+                            </label>
+                            <input type="radio" class="form-check-input ms-3" name="hinh_thuc" ng-value="0"
+                                ng-change="loc()" ng-model="selectOptionHinhThuc">
+                            <label class="form-check-label">
+                                Tiền mặt
+                            </label>
+                            <input type="radio" class="form-check-input ms-3" name="hinh_thuc" ng-value="1"
+                                ng-model="selectOptionHinhThuc" ng-change="loc()">
+                            <label class="form-check-label">
+                                Phần trăm
+                            </label>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Mã</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Hình thức </th>
+                                    <th scope="col">Đơn tối thiểu</th>
+                                    <th scope="col">Giảm</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="maGiamGia in listMaGiamGia">
+                                <tr>
+                                    <th>{{customIndex +$index+1}}</th>
+
+                                    <th>{{maGiamGia.ma}}</th>
+                                    <th>{{maGiamGia.tenKM}}</th>
+                                    <th>
+                                        <p>
+                                            {{maGiamGia.hinhThucGiam =='0'? "Tiền mặt" : "Phần trăm"}}
+                                        </p>
+                                    </th>
+                                    <th>{{maGiamGia.giaTriDonToiThieu | number}} VND</th>
+                                    <th><span>
+                                            {{ maGiamGia.hinhThucGiam === 0 ?
+                                            (maGiamGia.giaTriGiam | number) + ' VND' :
+                                            maGiamGia.giaTriGiam + ' %'
+                                            }}
+                                        </span></th>
+
+                                    <th>{{maGiamGia.soLuong}}</th>
+                                    <th>
+
+                                        <p class="text-g" ng-if="maGiamGia.trangThai ===1">Sắp diễn ra</p>
+                                        <p class="text-gl" ng-if="maGiamGia.trangThai ===2">Đang diễn ra</p>
+                                        <p class="text-glow" ng-if="maGiamGia.trangThai ===3">Đã kết thúc</p>
+                                    </th>
+                                    <th>
+                                        <a ng-if="maGiamGia.trangThai===1" href="#ma-giam-gia/update/{{maGiamGia.id}}">
+                                            <i class="align-middle me-2 fas fa-fw fa-edit"></i>
+                                        </a>
+                                        <a ng-if="maGiamGia.trangThai===2 || maGiamGia.trangThai===3"
+                                            href="#/ma-giam-gia-chi-tiet/detail/{{maGiamGia.id}}">
+                                            <i class="align-middle me-2 fas fa-fw fa-info-circle"></i>
+                                        </a>
+                                    </th>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="listMaGiamGia.length === 0">
+                            <p class="dataTables_empty_icon">
+                                <img src="../../../assets/anh-san-pham/empty-product.png" alt="">
+                            </p>
+                            <p class="dataTables_empty_lable">
+                                Không có dữ liệu
+                            </p>
+                        </div>
+
+                        <div class="row mt-4" ng-if="listMaGiamGia.length !== 0">
+                            <div class="col-md-12">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">
+                                            <a class="page-link" ng-click="previousPage()" aria-label="Previous">
+                                                <span aria-hidden="true">
+                                                    << </span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item" ng-repeat="page in visiblePages"
+                                            ng-class="{ 'active': page.active === 'active' }">
+                                            <a class="page-link" ng-click="changePage(page.page - 1)">{{ page.page
+                                                }}</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" ng-click="nextPage()"> >> </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <p>Tổng số trang: {{ totalPages.length }}</p>
+                        </div>
+                        <div class="toast-container position-fixed top-0 end-0 p-3">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                                data-bs-delay="1000">
+                                <div class="toast-body">
+                                    <span class="success">
+                                        <i class="fa-solid fa-check fa-xl"></i>
+                                    </span>
+                                    <span class="message_error">
+                                        {{message}}
+                                    </span>
+                                    <div id="myProgress">
+                                        <div id="success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

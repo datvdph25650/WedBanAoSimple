@@ -1,0 +1,451 @@
+<main class="wrapperMain_content">
+  <div id="layout-cart">
+    <div class="wrapper-mainCart">
+      <div class="content-bodyCart">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12 sidebarCart-sticky">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form id="cartformpage">
+                    <div class="header-wrap">
+                      <div class="image-wrap">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="row">
+                              <div class="ms-4 mb-5">
+                                <div class="uploadfile">
+                                  <label for="product-image">
+                                    <i
+                                      ng-if="!list.anhDaiDien"
+                                      style="font-size: 70px"
+                                      class="fas fa-user-circle"
+                                      aria-hidden="true"
+                                    ></i>
+                                    <img
+                                      ng-if="list.anhDaiDien"
+                                      src="../../../assets/anh-nguoi-dung/{{list.anhDaiDien}}"
+                                      class="table_img"
+                                    />
+                                    <input
+                                      type="file"
+                                      multiple
+                                      class="file-upload-input"
+                                      id="product-image"
+                                      data-mdb-file-upload="file-upload"
+                                      style="display: none"
+                                    />
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-7">
+                            <div class="text-header">
+                              <p>Xin chào, {{list.hoTen}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-shopping-cart"></i> </span>
+                          <a class="text" href="#don-hang"> Đơn hàng của tôi</a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-user"></i> </span>
+                          <a class="text" href="#thong-tin">
+                            Thông tin cá nhân</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-map-marker-alt"></i> </span>
+                          <a class="text" href="#dia-chi"> Địa chỉ</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="col-9 content-children item-row"
+              ng-init="getLocHoaDon()"
+            >
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form action="">
+                    <div class="order-wrap" id="donhang">
+                      <div
+                        class="nav nav-tabs menu-tab"
+                        id="myTab"
+                        role="tablist"
+                      >
+                        <a
+                          ng-click="selectTabb(null)"
+                          class="nav-link"
+                          ng-class="{ 'active': isSelectedTabb(null) }"
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#tab-all"
+                          role="tab"
+                          aria-selected="true"
+                        >
+                          Tất cả
+                        </a>
+                        <a
+                          ng-click="selectTabb(0)"
+                          class="nav-link"
+                          ng-class="{ 'active': isSelectedTabb(0) }"
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#tab1"
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1"
+                        >
+                          Chờ xác nhận
+                        </a>
+                        <a
+                          ng-click="selectTabb(1)"
+                          class="nav-link"
+                          ng-class="{ 'active': isSelectedTabb(1) }"
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#tab5"
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1"
+                        >
+                          Đã xác nhận
+                        </a>
+                        <a
+                          ng-click="selectTabb(2)"
+                          class="nav-link"
+                          ng-class="{ 'active': isSelectedTabb(2) }"
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#tab2"
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1"
+                        >
+                          Đang giao hàng
+                        </a>
+                        <a
+                          ng-click="selectTabb(3)"
+                          class="nav-link"
+                          ng-class="{ 'active': isSelectedTabb(3) }"
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#tab3"
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1"
+                        >
+                          Hoàn thành
+                        </a>
+                        <a
+                          ng-click="selectTabb(4)"
+                          class="nav-link"
+                          ng-class="{ 'active': isSelectedTabb(4) }"
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          data-bs-target="#tab4"
+                          role="tab"
+                          aria-selected="false"
+                          tabindex="-1"
+                        >
+                          Đã hủy
+                        </a>
+                      </div>
+                      <br />
+
+                      <div>
+                        <div class="mainCart-detail">
+                          <div
+                            class="list-pageform-cart"
+                            ng-class="{ 'active': isSelectedTabb(null) || isSelectedTabb(0) || isSelectedTabb(2) || isSelectedTabb(3) || isSelectedTabb(1) || isSelectedTabb(4) }"
+                          >
+                            <form id="cartformpage">
+                              <div ng-if="donHangListMerged.length==0">
+                                <p class="dataTables_empty_icon">
+                                  <img
+                                    ng-src="../../../assets/anh-san-pham/empty-product.png"
+                                    alt=""
+                                  />
+                                </p>
+                                <p class="dataTables_empty_lable">
+                                  Không có sản phẩm nào
+                                </p>
+                              </div>
+                              <div class="cart-row">
+                                <div
+                                  class="table-cart"
+                                  ng-repeat="hang in donHangListMerged"
+                                >
+                                  <!-- Trong template HTML -->
+                                  <span
+                                    ng-class="getStatusColor(hang.trangThai)"
+                                  >
+                                    {{ statusMapping[hang.trangThai] || 'Không
+                                    xác định' }}
+                                  </span>
+                                  <div ng-repeat="item in hang.products">
+                                    <div
+                                      class="media-line-item line-item"
+                                      data-variant-id="1116772352"
+                                      data-product-id="1051838542"
+                                    >
+                                      <div class="media-left">
+                                        <div class="item-img">
+                                          <img
+                                            ng-src="../../../assets/anh-san-pham/{{item.duongDan}}"
+                                            alt="8YO MÃ ĐÁO THÀNH CÔNG ART TEE"
+                                          />
+                                        </div>
+                                      </div>
+
+                                      <div class="media-right">
+                                        <div class="item-info">
+                                          <h3 class="item--title">
+                                            <a
+                                              href="#hoa-don-timeline"
+                                              ng-click="hienThiHoaDonTimeLine(item)"
+                                            >
+                                              {{item.tenSanPham}}
+                                              {{item.tenChatLieu}}
+                                              {{item.tenPhongCach}}
+                                              {{item.tenTayAo}} {{item.tenCoAo}}
+                                              {{item.tenHoaTiet}}</a
+                                            >
+                                          </h3>
+
+                                          <div class="item--variant">
+                                            <span
+                                              >Phân loại hàng:
+                                              {{item.tenMauSac}} /
+                                              {{item.tenKichThuoc}}</span
+                                            >
+                                          </div>
+                                        </div>
+                                        <div class="item-price">
+                                          <p>
+                                            <span>
+                                              x{{item.slsanPhamHoaDon}}</span
+                                            >
+
+                                            <!-- <del>350,000₫</del> -->
+                                          </p>
+                                        </div>
+                                      </div>
+
+                                      <div class="media-total">
+                                        <div class="item-total-price">
+                                          <span class="line-item-total"
+                                            >{{item.donGiaSanPham |
+                                            number:0}}₫</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <hr />
+                                  <span class="line-item-label"
+                                    >Thành tiền:
+                                  </span>
+                                  <span
+                                    class="line-item-total"
+                                    style="color: red; font-size: 20px"
+                                  >
+                                    {{hang.tongTien | number:0}}₫
+                                  </span>
+
+                                  <button
+                                    ng-click="huyDonHang(hang)"
+                                    ng-if="hang.trangThai == 0"
+                                  >
+                                    Hủy đơn hàng
+                                  </button>
+
+                                  <button
+                                    ng-click="daNhanHang(hang)"
+                                    ng-if="hang.trangThai == 2"
+                                  >
+                                    Đã nhận được hàng
+                                  </button>
+
+                                  <button
+                                    ng-click="muaLai(hang.products)"
+                                    ng-if="hang.trangThai == 3 || hang.trangThai == 4"
+                                  >
+                                    Mua lại
+                                  </button>
+
+                                  <span></span
+                                  ><button class="sao" ng-click="lienHe()">
+                                    Liên hệ người bán
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  /* CSS để tùy chỉnh giao diện khi không có dữ liệu */
+  .dataTables_empty_lable {
+    text-align: center;
+    font-size: 18px;
+    color: gray;
+  }
+  .dataTables_empty_icon {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+  }
+  .sao {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000; /* Black border with 2px width */
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .sao:hover {
+    background-color: #ffffff;
+    /* Màu đỏ đậm khi rê chuột vào */
+  }
+
+  /* Kiểu khi nhấn giữ nút */
+  .sao:active {
+    background-color: #f7f1f1;
+    /* Màu đỏ sáng khi nhấn giữ */
+  }
+
+  .table_img {
+    width: 70px;
+    /* Đặt chiều rộng mong muốn */
+    height: 70px;
+    /* Đặt chiều cao mong muốn, nên giữ chiều rộng và chiều cao bằng nhau */
+    border-radius: 80%;
+    object-fit: cover;
+    /* Tùy chọn, giữ tỷ lệ khung hình khi ảnh không phải là hình vuông */
+  }
+
+  .color-cho-xac-nhan {
+    color: orange;
+  }
+
+  .color-da-xac-nhan {
+    color: blue;
+  }
+
+  .color-dang-giao-hang {
+    color: blue;
+  }
+
+  .color-da-giao-thanh-cong {
+    color: green;
+  }
+
+  .color-giao-that-bai {
+    color: brown;
+  }
+
+  .color-da-huy {
+    color: red;
+  }
+
+  /* Add this CSS to your stylesheet */
+
+  .cart-row .table-cart .media-right .item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-row .table-cart .media-right .item-info .item-price {
+    margin-top: 10px;
+    /* Adjust the margin as needed */
+  }
+  .button-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-container button {
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #ff5c5c;
+    /* Màu đỏ */
+    color: #fff;
+    /* Màu chữ trắng */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Kiểu khi rê chuột vào nút */
+  button:hover {
+    background-color: #ff3535;
+    /* Màu đỏ đậm khi rê chuột vào */
+  }
+
+  /* Kiểu khi nhấn giữ nút */
+  button:active {
+    background-color: #cc0000;
+    /* Màu đỏ sáng khi nhấn giữ */
+  }
+
+  .cart-row .table-cart button {
+    float: right;
+  }
+
+  /* Ẩn nút khi trạng thái khác 1 */
+  button.ng-hide {
+    display: none;
+  }
+
+  /* Add this CSS to your stylesheet */
+
+  .cart-row .table-cart {
+    position: relative;
+  }
+
+  .cart-row .table-cart span[ng-class="getStatusColor(hang.trangThai)"] {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    text-transform: uppercase;
+  }
+</style>

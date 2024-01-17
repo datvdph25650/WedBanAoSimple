@@ -1,0 +1,825 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="card flex-fill">
+            <div class="card-body d-flex">
+                <div class="align-self-center w-100">
+                    <h4>THÊM SẢN PHẨM CHI TIẾT</h4>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a type="button" class="btn btn-primary" ng-click="addSanPhamChiTiet($event)"
+                            id="liveToastBtn">Hoàn
+                            Tất</a>
+                    </div>
+                    <div>
+                        <label class="form-label">Tên sản phẩm</label>
+                        <input class="form-control mb-3" list="datalistOptions" ng-model="product.tenSanPham"
+                            ng-change="renderMota()">
+                        <datalist id="datalistOptions">
+                            <option value="{{sanPham.ten}}"
+                                ng-repeat="sanPham in listSanPhamTrangThai | filter:product.tenSanPham">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label class="form-label">Mô tả</label>
+                        <textarea class="form-control mb-3 " cols="100" rows="3" ng-model="product.moTa"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-0">
+        <div class="card flex-fill">
+            <div class="card-body d-flex">
+                <div class="align-self-center w-100">
+                    <h4 class="mb-4">Danh sách thuộc tính</h4>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Chất liệu</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span class="title">{{selectedChatLieu?
+                                                                selectedChatLieu:'Chọn chất liệu'}}</span>
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content">
+                                                            <ul class="checkbox-list">
+                                                                <li ng-repeat="chatLieu in listChatLieuTrangThai">
+                                                                    <input ng-hide="true" type="radio"
+                                                                        id="{{chatLieu.ma}}"
+                                                                        ng-click="getChatLieu(chatLieu)" />
+                                                                    <label
+                                                                        for="{{chatLieu.ma}}">{{chatLieu.ten}}</label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="formChatLieu.ten">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addChatLieu($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Phong cách</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span class="title">{{selectedPhongCach?
+                                                                selectedPhongCach:'Chọn phong cách'}}</span>
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content">
+                                                            <ul class="checkbox-list">
+                                                                <li ng-repeat="phongCach in listPhongCachTrangThai">
+                                                                    <input ng-hide="true" type="radio"
+                                                                        id="{{phongCach.ma}}"
+                                                                        ng-click="getPhongCach(phongCach)" />
+                                                                    <label
+                                                                        for="{{phongCach.ma}}">{{phongCach.ten}}</label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="formPhongCach.ten">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addPhongCach($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Họa tiết</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span class="title">{{selectedHoaTiet?
+                                                                selectedHoaTiet:'Chọn họa tiết'}}</span>
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content">
+                                                            <ul class="checkbox-list">
+                                                                <li ng-repeat="coAo in listHoaTietTrangThai">
+                                                                    <input ng-hide="true" type="radio" id="{{coAo.ma}}"
+                                                                        ng-click="getHoaTiet(coAo)" />
+                                                                    <label for="{{coAo.ma}}">{{coAo.ten}}</label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="formHoaTiet.ten">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addHoaTiet($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <label class="form-label">Cổ áo</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span class="title">{{selectedCoAo?
+                                                                selectedCoAo:'Chọn cổ áo'}}</span>
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content">
+                                                            <ul class="checkbox-list">
+                                                                <li ng-repeat="coAo in listCoAoTrangThai">
+                                                                    <input ng-hide="true" type="radio" id="{{coAo.ma}}"
+                                                                        ng-click="getCoAo(coAo)" />
+                                                                    <label for="{{coAo.ma}}">{{coAo.ten}}</label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="formCoAo.ten">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addCoAo($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Tay áo</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span class="title">{{selectedTayAo?
+                                                                selectedTayAo:'Chọn tay áo'}}</span>
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content">
+                                                            <ul class="checkbox-list">
+                                                                <li ng-repeat="tayAo in listTayAoTrangThai">
+                                                                    <input ng-hide="true" type="radio" id="{{tayAo.ma}}"
+                                                                        ng-click="getTayAo(tayAo)" />
+                                                                    <label for="{{tayAo.ma}}">{{tayAo.ten}}</label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="formTayAo.ten">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addTayAo($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <label class="form-label">Màu sắc</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span class="title">{{ displaySelectedMauSac(selectedMauSac)
+                                                                }}</span>
+
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content filter-color">
+                                                            <ul class="checkbox-list ">
+                                                                <li ng-repeat="mauSac in listMauSacTrangThai">
+                                                                    <input type="checkbox" id="{{mauSac.ma}}"
+                                                                        ng-click="addMauSac($index)" />
+                                                                    <label for="{{mauSac.ma}}" ng-value="mauSac.ten"
+                                                                        ng-style="{ 'background-color': mauSac.ma }"></label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="color" id="color"
+                                                                        class="form-control form-control-color"
+                                                                        ng-model="formMauSac.ma">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addNewMauSac($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Kích thước</label>
+                            <div class="wrapper_layered_filter">
+                                <div class="layered_filter_parent">
+                                    <div class="layered_filter_container">
+                                        <div class="layered_filter_group">
+                                            <div class="row ">
+                                                <div class="filter_group" aria-expanded="false">
+                                                    <div class="filter_group_block">
+                                                        <div class="filter_group-subtitle">
+                                                            <span
+                                                                class="title">{{displaySelectedKichThuoc(selectedKichThuoc)}}</span>
+                                                            <span class="icon-control"><i class="fa fa-chevron-down"
+                                                                    aria-hidden="true"></i></span>
+                                                        </div>
+                                                        <div class="filter_group-content">
+                                                            <ul class="checkbox-list">
+                                                                <li ng-repeat="kichThuoc in listKichThuocTrangThai">
+                                                                    <input type="checkbox" id="{{kichThuoc.ma}}"
+                                                                        ng-checked="kichThuoc.checked"
+                                                                        ng-click="addKichThuoc($index)" />
+                                                                    <label
+                                                                        for="{{kichThuoc.ma}}">{{kichThuoc.ten}}</label>
+                                                                </li>
+                                                                <li style="display:flex;">
+                                                                    <input type="text" class="form-control"
+                                                                        ng-model="formKichThuoc.ten">
+                                                                    <a type="button" class="btn btn-primary ms-2"
+                                                                        ng-click="addNewKichThuoc($event)">Thêm</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-0">
+        <div class="card flex-fill">
+            <div class="card-body d-flex">
+                <div class="align-self-center w-100">
+                    <h4 class="mb-4">Danh sách kích thước và màu sắc</h4>
+                    <div ng-repeat="(color, listProduct) in  groupedProducts">
+                        <p class="san-pham-cung-mau" ng-style="{'background-color': products.maMau}">Các sản phẩm màu
+                            {{color}}</p>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Kích Thước</th>
+                                    <th>Màu Sắc</th>
+                                    <th>Số Lượng</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="product in listProduct track by $index">
+                                <tr>
+                                    <th>{{$index+1}}</th>
+                                    <th>{{product.tenKichThuoc}}</th>
+                                    <th>{{product.tenMauSac}}</th>
+                                    <!-- Căn giữa theo chiều dọc và chiều ngang -->
+                                    <th style="text-align: center; vertical-align: middle;">
+                                        <input type="text" ng-model="product.soLuong"
+                                            class="form-control form-control-sm" style="width: 70px; height: 30px;" />
+                                    </th>
+
+                                    <!-- Căn giữa theo chiều ngang -->
+                                    <th style="text-align: center;">
+                                        <input type="text" ng-model="product.gia" class="form-control form-control-sm"
+                                            style="width: 100px; height: 30px;" />
+                                    </th>
+
+
+                                    <th>
+                                        <a ng-click="removeSize(product.tenMauSac,$parent.$index,$index)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </th>
+
+                                </tr>
+                            </tbody>
+                            <tfoot class="mt-3" ng-repeat="product in listProduct track by $index">
+
+                                <td ng-if="$index===0" colspan="6" style="text-align: center; padding-top: 30px;">
+                                    <input type="file" class="file-upload-input" id="product-image"
+                                        style="display: none;">
+                                    <i ng-if="product.urlImage===null"
+                                        ng-click="selectFile(product.tenMauSac,$index);$event.stopPropagation()"
+                                        style="font-size: 3em;" class="fa-solid fa-image fa-xl"></i>
+                                    <img ng-if="product.urlImage!==null" style="height: 200px;width: 200px;"
+                                        ng-click="selectFile(product.tenMauSac,$index);$event.stopPropagation()"
+                                        ng-src="../../../assets/anh-san-pham/{{product.urlImage}}">
+                                </td>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div ng-if="colors.length === 0 && sizes.length === 0">
+                        <p class="dataTables_empty_icon">
+                            <img src="../../../assets/anh-san-pham/empty-product.png" alt="">
+                        </p>
+                        <p class="dataTables_empty_lable">
+                            Không có dữ liệu
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1100">
+            <div class="toast-body">
+                <span class="success" ng-hide="showError==false">
+                    <i class="fa-solid fa-check fa-xl"></i>
+                </span>
+                <span class="icon_error" ng-hide="showError">
+                    <i class="fa-solid fa-xmark fa-xl"></i>
+                </span>
+                <span class="message_error">
+                    {{message}}
+                </span>
+                <div id="myProgress">
+                    <div id="success" ng-hide="showError==false"></div>
+                    <div id="error" ng-hide="showError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .san-pham-cung-mau {
+        text-align: center;
+        padding: 10px 0;
+        background-color: teal;
+        color: white;
+    }
+
+    .wrapper_layered_filter {
+        margin-bottom: 0;
+    }
+
+    .wrapper_layered_filter .layered_filter_title {
+        text-transform: uppercase;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter {
+        margin: 0;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter:after {
+        content: "";
+        width: 1px;
+        height: 20px;
+        background: var(--shop-color-border);
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 20px;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter .icon-filter {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .title_filter .icon-filter svg {
+        width: 20px;
+        height: 30px;
+        fill: #909097;
+        stroke: #909097;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .close_filter {
+        display: none;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 10px;
+        top: calc(50% - 15px);
+        z-index: 5;
+        border: 0;
+        background: transparent;
+        text-align: center;
+        outline: none;
+    }
+
+    .wrapper_layered_filter .layered_filter_title .close_filter svg {
+        width: 16px;
+        height: 30px;
+    }
+
+    .wrapper_layered_filter .layered_filter_container {
+        margin-bottom: 5px;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .wrapper_layered_filter .layered_filter_container .layered_filter_group {
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        width: 1%;
+    }
+
+    .wrapper_layered_filter .layered_filter_container .layered_filter_title {
+        display: inline-block;
+        max-width: 30%;
+    }
+
+    .wrapper_layered_filter .layered_filter_container .layered_filter_bottom {
+        display: none;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group_block {
+        position: relative;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group-subtitle {
+        position: relative;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 15px;
+        background: #fff;
+        border: 1px solid var(--shop-color-border);
+        cursor: pointer;
+        border-radius: 0px;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group-subtitle span.icon-control {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 5px;
+        margin: auto;
+        font-size: 10px;
+        vertical-align: 1px;
+        display: inline-block;
+        -webkit-transition: transform 0.3s;
+        -moz-transition: transform 0.3s;
+        -o-transition: transform 0.3s;
+        transition: transform 0.3s;
+    }
+
+    .wrapper_layered_filter .filter_group .filter_group-content {
+        background: #ffffff;
+        font-size: 17px;
+        position: fixed;
+        z-index: 1000;
+        overflow-y: auto;
+        max-height: 200px;
+
+    }
+
+    .checkbox-list {
+        padding: 0;
+    }
+
+    /* .checkbox-list li {
+        padding: 0;
+    } */
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags {
+        position: relative;
+        border-radius: 12px;
+        margin: 8px 8px 0px 0;
+        color: #5d5d5d;
+        background: #fff;
+        border: 1px solid #dadada;
+        font-size: 13px;
+        display: none;
+        padding: 2px 32px 3px 10px;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags span.filter_tags_remove {
+        position: absolute;
+        right: 8px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags span.filter_tags_remove svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags.opened {
+        display: inline-block;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags.filter_tags_remove_all {
+        cursor: pointer;
+        border: 0;
+        padding-left: 8px;
+        padding-right: 8px;
+        background: transparent;
+    }
+
+    .wrapper_layered_filter .layered_filter_tags .filter_tags.filter_tags_remove_all span {
+        color: var(--shop-color-hover);
+        border-bottom: 1px solid var(--shop-color-hover);
+    }
+
+    @media (min-width: 992px) {
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby {
+            display: none;
+        }
+
+        .wrapper_layered_filter .filter_group .filter_group-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0;
+            top: calc(100% + 10px);
+            z-index: 100;
+            border: 1px solid var(--shop-color-border);
+            border-top: 0;
+            pointer-events: none;
+            visibility: hidden;
+            opacity: 0;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper_layered_filter .filter_group .filter_group_block:hover .filter_group-content {
+            pointer-events: auto;
+            visibility: visible;
+            top: 100%;
+            opacity: 1;
+        }
+
+        .wrapper_layered_filter .filter_group .filter_group_block:hover .filter_group-subtitle span.icon-control {
+            color: #666;
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    }
+
+    @media (max-width: 991px) {
+        .wrapper_layered_filter {
+            margin: 0;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent {
+            display: none;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent .overlays-rgba {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .wrapper_layered_filter .layered_filter_container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 100%;
+            max-height: 100%;
+            bottom: 0;
+            background: #ffffff;
+            margin: 0;
+            overflow: hidden;
+            -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-transition: transform 0.4s ease;
+            transition: transform 0.4s ease;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title {
+            position: relative;
+            width: 100%;
+            display: block;
+            max-width: 100%;
+            padding: 12px 50px 12px 15px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .close_filter {
+            display: block;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter {
+            font-size: 16px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter:after {
+            display: none;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter .icon-filter {
+            width: 22px;
+            height: 22px;
+            margin-top: -2px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_title .title_filter .icon-filter svg {
+            width: 22px;
+            height: 100%;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_group {
+            -ms-flex: 0 0 auto;
+            flex: 1 1 auto;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            overflow-x: hidden;
+            padding: 10px 15px 10px;
+            border-top: 1px solid var(--shop-color-border);
+            border-bottom: 1px solid var(--shop-color-border);
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom {
+            width: 100%;
+            padding: 10px 5px 12px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom .btn-filter {
+            margin: 0 6px;
+            -ms-flex: 0 0 calc(50% - 12px);
+            flex: 0 0 calc(50% - 12px);
+            max-width: calc(50% - 12px);
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: 1px;
+            outline: none;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom .btn-filter-apply {
+            color: #ffffff;
+            background-color: var(--shop-color-button);
+            border: 1px solid var(--shop-color-button);
+        }
+
+        .wrapper_layered_filter .layered_filter_container .layered_filter_bottom .btn-filter-clear {
+            color: #000000;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group+.filter_group .filter_group_block {
+            border-top: 1px solid var(--shop-color-border);
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group.filter_sortby {
+            display: block;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-subtitle span.icon-control {
+            display: none;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-subtitle {
+            border: 0;
+            font-size: 14px;
+        }
+
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-subtitle,
+        .wrapper_layered_filter .layered_filter_container .filter_group .filter_group-content {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .wrapper_layered_filter .layered_filter_tags {
+            display: none;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.show-filter .layered_filter_container {
+            pointer-events: auto;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+            -webkit-transition-delay: 0.1s;
+            transition-delay: 0.1s;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.show-filter .overlays-rgba {
+            pointer-events: auto;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby .layered_filter_container {
+            height: auto;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby .layered_filter_container {
+            border-radius: 16px 16px 0 0;
+        }
+
+        .wrapper_layered_filter .layered_filter_parent.layered_filter_sortby .filter_sortby .filter_group-subtitle {
+            display: none;
+        }
+    }
+
+    .title {
+        font-size: medium;
+        font-weight: normal;
+    }
+</style>

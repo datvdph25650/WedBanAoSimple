@@ -1,0 +1,576 @@
+<main class="wrapperMain_content">
+  <div id="layout-cart">
+    <div class="wrapper-mainCart">
+      <div class="content-bodyCart">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12 sidebarCart-sticky">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form id="cartformpage">
+                    <div class="header-wrap">
+                      <div class="image-wrap">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="row">
+                              <div class="ms-4 mb-5">
+                                <div class="uploadfile">
+                                  <label for="product-image">
+                                    <i
+                                      ng-if="!list.anhDaiDien"
+                                      style="font-size: 70px"
+                                      class="fas fa-user-circle"
+                                      aria-hidden="true"
+                                    ></i>
+                                    <img
+                                      ng-if="list.anhDaiDien"
+                                      ng-src="../../../assets/anh-nguoi-dung/{{list.anhDaiDien}}"
+                                      class="table_img"
+                                    />
+                                    <input
+                                      type="file"
+                                      multiple
+                                      class="file-upload-input"
+                                      id="product-image"
+                                      data-mdb-file-upload="file-upload"
+                                      style="display: none"
+                                    />
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-7">
+                            <div class="text-header">
+                              <p>Xin chào, {{list.hoTen}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-shopping-cart"></i> </span>
+                          <a class="text" href="#don-hang"> Đơn hàng của tôi</a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-user"></i> </span>
+                          <a class="text" href="#thong-tin">
+                            Thông tin cá nhân</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-map-marker-alt"></i> </span>
+                          <a class="text" href="#dia-chi"> Địa chỉ</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-9 content-children item-row">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form action="">
+                    <div class="order-wrap" id="donhang">
+                      <br />
+
+                      <div>
+                        <div class="mainCart-detail">
+                          <div class="list-pageform-cart">
+                            <form id="cartformpage">
+                              <div class="cart-row">
+                                <div
+                                  class="table-cart"
+                                  ng-repeat="hang in donHangListMerged"
+                                >
+                                  <a
+                                    href=""
+                                    ng-click="quayLai()"
+                                    class="back-link"
+                                    >Quay lại</a
+                                  >
+                                  <hr />
+                                  <div class="order-details">
+                                    <div class="order-id">
+                                      MÃ ĐƠN HÀNG: {{ hang.maHoaDon }}
+                                    </div>
+                                    <span
+                                      ng-class="getStatusColor(hang.trangThai)"
+                                    >
+                                      {{ statusMapping[hang.trangThai] || 'Không
+                                      xác định' }}
+                                    </span>
+                                  </div>
+
+                                  <hr />
+
+                                  <div
+                                    class="timeline-container"
+                                    ng-if="hang.trangThai != 4 "
+                                  >
+                                    <div>
+                                      <ul class="timeline">
+                                        <li
+                                          class="timeline-item"
+                                          ng-repeat="lichsua in listlichsu"
+                                        >
+                                          <div
+                                            ng-if="lichsua.trangThai == 0"
+                                            class="timeline-content"
+                                          >
+                                            <span class="order-label"
+                                              >Đơn hàng đã đặt</span
+                                            >
+                                            <span
+                                              >{{ beautifyDate(lichsua.ngayTao)
+                                              }}</span
+                                            ><br />
+                                          </div>
+                                          <div
+                                            ng-if="lichsua.trangThai == 5"
+                                            class="timeline-content"
+                                          >
+                                            <span class="order-label"
+                                              >Tạo đơn hàng</span
+                                            >
+                                            <span
+                                              >{{ beautifyDate(lichsua.ngayTao)
+                                              }}</span
+                                            ><br />
+                                          </div>
+                                          <div
+                                            ng-if="lichsua.trangThai == 1"
+                                            class="timeline-content"
+                                          >
+                                            <span class="order-label"
+                                              >Đã xác nhận</span
+                                            ><span
+                                              >{{ beautifyDate(lichsua.ngayTao)
+                                              }}</span
+                                            ><br />
+                                          </div>
+                                          <div
+                                            ng-if="lichsua.trangThai == 2"
+                                            class="timeline-content"
+                                          >
+                                            <span class="order-label"
+                                              >Đang giao hàng</span
+                                            ><span
+                                              >{{ beautifyDate(lichsua.ngayTao)
+                                              }}</span
+                                            ><br />
+                                          </div>
+                                          <div
+                                            ng-if="lichsua.trangThai == 3"
+                                            class="timeline-content"
+                                          >
+                                            <span class="order-label"
+                                              >Đã nhận hàng</span
+                                            ><span
+                                              >{{ beautifyDate(lichsua.ngayTao)
+                                              }}</span
+                                            ><br />
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <hr />
+                                  <br />
+                                  <h3>Địa chỉ nhận hàng</h3>
+                                  <br />
+                                  <h5>{{hang.tenKhachHang}}</h5>
+                                  <span>{{hang.soDienThoai}}</span><br />
+                                  <span>{{hang.diaChi}}</span>
+                                  <br />
+                                  <hr />
+                                  <br />
+                                  <div ng-repeat="item in hang.products">
+                                    <div
+                                      class="media-line-item line-item"
+                                      data-variant-id="1116772352"
+                                      data-product-id="1051838542"
+                                    >
+                                      <div class="media-left">
+                                        <div class="item-img">
+                                          <img
+                                            src="../../../assets/anh-san-pham/{{item.duongDan}}"
+                                            alt="8YO MÃ ĐÁO THÀNH CÔNG ART TEE"
+                                          />
+                                        </div>
+                                      </div>
+
+                                      <div class="media-right">
+                                        <div class="item-info">
+                                          <h3 class="item--title">
+                                            <a
+                                              href="#hoa-don-timeline"
+                                              ng-click="hienThiHoaDonTimeLine(hang)"
+                                            >
+                                              {{item.tenSanPham}}
+                                              {{item.tenChatLieu}}
+                                              {{item.tenPhongCach}}
+                                              {{item.tenTayAo}} {{item.tenCoAo}}
+                                              {{item.tenHoaTiet}}</a
+                                            >
+                                          </h3>
+
+                                          <div class="item--variant">
+                                            <span
+                                              >Phân loại hàng:
+                                              {{item.tenMauSac}} /
+                                              {{item.tenKichThuoc}}</span
+                                            >
+                                          </div>
+                                        </div>
+                                        <div class="item-price">
+                                          <p>
+                                            <span>
+                                              x{{item.slsanPhamHoaDon}}</span
+                                            >
+
+                                            <!-- <del>350,000₫</del> -->
+                                          </p>
+                                        </div>
+                                      </div>
+
+                                      <div class="media-total">
+                                        <div class="item-total-price">
+                                          <span class="line-item-total"
+                                            >{{item.donGiaSanPham |
+                                            number:0}}₫</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <hr />
+                                  <span class="line-item-label"
+                                    >Loại hóa đơn:
+                                  </span>
+                                  <span
+                                    class="line-item-total"
+                                    style="font-size: 15px"
+                                  >
+                                    {{hang.loaiHoaDon}}
+                                  </span>
+                                  <hr />
+                                  <span class="line-item-label"
+                                    >Phí vận chuyển :
+                                  </span>
+                                  <span
+                                    class="line-item-total"
+                                    style="font-size: 15px"
+                                  >
+                                    {{hang.phiShip | number:0}}₫
+                                  </span>
+                                  <hr />
+                                  <span
+                                    ng-if="!listgiamgia || listgiamgia.length === 0"
+                                    >Không có giảm giá</span
+                                  >
+
+                                  <span
+                                    ng-repeat="giamgia in listgiamgia"
+                                    class="line-item-total"
+                                    style="font-size: 15px"
+                                  >
+                                    <span ng-if="giamgia.hinhThuc==1">
+                                      Giảm giá: {{giamgia.giaTri}} %
+                                    </span>
+                                    <span ng-if="giamgia.hinhThuc==0">
+                                      Giảm giá: {{giamgia.giaTri | number:0}}
+                                      VND
+                                    </span>
+                                  </span>
+
+                                  <hr />
+
+                                  <span class="line-item-label"
+                                    >Thành tiền:
+                                  </span>
+                                  <span
+                                    class="line-item-total"
+                                    style="color: red; font-size: 20px"
+                                  >
+                                    {{hang.tongTien | number:0}}₫
+                                  </span>
+                                  <hr />
+                                  <div ng-repeat="lichsua in listlichsu">
+                                    <div
+                                      ng-if="lichsua.trangThai == 4"
+                                      class="timeline-content"
+                                    >
+                                      <span
+                                        >Lý đo hủy : {{lichsua.noiDung}}</span
+                                      >
+                                    </div>
+                                  </div>
+
+                                  <button
+                                    ng-click="huyDonHang(hang)"
+                                    ng-if="hang.trangThai == 0"
+                                  >
+                                    Hủy đơn hàng
+                                  </button>
+
+                                  <button
+                                    ng-click="daNhanHang(hang)"
+                                    ng-if="hang.trangThai == 2"
+                                  >
+                                    Đã nhận được hàng
+                                  </button>
+                                  <button
+                                    ng-click="muaLai(hang.products)"
+                                    ng-if="hang.trangThai == 3 || hang.trangThai == 4"
+                                  >
+                                    Mua lại
+                                  </button>
+
+                                  <span></span
+                                  ><button class="sao" ng-click="lienHe()">
+                                    Liên hệ người bán
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  .sao {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000; /* Black border with 2px width */
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .sao:hover {
+    background-color: #ffffff;
+    /* Màu đỏ đậm khi rê chuột vào */
+  }
+
+  /* Kiểu khi nhấn giữ nút */
+  .sao:active {
+    background-color: #f7f1f1;
+    /* Màu đỏ sáng khi nhấn giữ */
+  }
+
+  .timeline-content {
+    text-align: center;
+  }
+  a.back-link {
+    text-decoration: none;
+    color: #ee4d2d;
+    transition: color 0.3s ease;
+  }
+
+  a.back-link:hover {
+    color: #bf3d29;
+  }
+
+  .timeline-content .order-label {
+    display: block;
+    font-size: 18px;
+    /* Đặt kích thước chữ cho span */
+    margin-bottom: 2px;
+  }
+
+  .timeline-content span {
+    margin-bottom: 3px;
+    /* Khoảng cách giữa span và đoạn p */
+  }
+
+  .order-details {
+    display: flex;
+    align-items: center;
+  }
+
+  .order-id,
+  .status {
+    margin-right: 0px;
+    /* Khoảng cách giữa mã đơn hàng và trạng thái */
+  }
+
+  .status {
+    font-weight: bold;
+    /* In đậm trạng thái */
+    /* Thêm các thuộc tính CSS khác tùy thuộc vào yêu cầu thiết kế của bạn */
+  }
+
+  .timeline-container {
+    overflow-x: hidden;
+    white-space: nowrap;
+    position: relative;
+    font-size: 14px;
+  }
+
+  .timeline {
+    display: flex;
+    list-style: none;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    /* Ẩn phần thừa nằm ngoài giới hạn */
+  }
+
+  .timeline::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #000000;
+    z-index: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 70%, 0% 100%);
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline-item {
+    position: relative;
+    width: 400px;
+    margin-right: 24px;
+    padding: 15px;
+    background: #3dd014;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 3;
+    font-size: 14px;
+    color: #333333;
+  }
+
+  .timeline-item::after {
+    display: none;
+  }
+
+  .timeline-item:hover {
+    transform: translateY(-5px);
+    background: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .table_img {
+    width: 70px;
+    /* Đặt chiều rộng mong muốn */
+    height: 70px;
+    /* Đặt chiều cao mong muốn, nên giữ chiều rộng và chiều cao bằng nhau */
+    border-radius: 80%;
+    object-fit: cover;
+    /* Tùy chọn, giữ tỷ lệ khung hình khi ảnh không phải là hình vuông */
+  }
+
+  .color-cho-xac-nhan {
+    color: orange;
+  }
+
+  .color-da-xac-nhan {
+    color: blue;
+  }
+
+  .color-dang-giao-hang {
+    color: blue;
+  }
+
+  .color-da-giao-thanh-cong {
+    color: green;
+  }
+
+  .color-giao-that-bai {
+    color: brown;
+  }
+
+  .color-da-huy {
+    color: red;
+  }
+
+  /* Add this CSS to your stylesheet */
+
+  .cart-row .table-cart .media-right .item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-row .table-cart .media-right .item-info .item-price {
+    margin-top: 10px;
+    /* Adjust the margin as needed */
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #ff5c5c;
+    /* Màu đỏ */
+    color: #fff;
+    /* Màu chữ trắng */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Kiểu khi rê chuột vào nút */
+  button:hover {
+    background-color: #ff3535;
+    /* Màu đỏ đậm khi rê chuột vào */
+  }
+
+  /* Kiểu khi nhấn giữ nút */
+  button:active {
+    background-color: #cc0000;
+    /* Màu đỏ sáng khi nhấn giữ */
+  }
+
+  .cart-row .table-cart button {
+    float: right;
+  }
+
+  /* Ẩn nút khi trạng thái khác 1 */
+  button.ng-hide {
+    display: none;
+  }
+
+  /* Add this CSS to your stylesheet */
+
+  .cart-row .table-cart {
+    position: relative;
+  }
+
+  .cart-row .table-cart span[ng-class="getStatusColor(hang.trangThai)"] {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    text-transform: uppercase;
+  }
+</style>

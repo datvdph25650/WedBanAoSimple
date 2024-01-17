@@ -1,0 +1,147 @@
+<main class="wrapperMain_content" ng-if="isLoggedIn==true">
+  <div id="layout-cart">
+    <div class="wrapper-mainCart">
+      <div class="content-bodyCart">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12 contentCart-detail">
+              <div class="mainCart-detail">
+                <div class="heading-cart"><h1>Giỏ hàng của bạn</h1></div>
+                <div class="list-pageform-cart">
+                  <form id="cartformpage">
+                    <div class="cart-row">
+                      <div class="table-cart" ng-repeat="item in gioHangList">
+                        <div
+                          class="media-line-item line-item"
+                          data-variant-id="1116772352"
+                          data-product-id="1051838542"
+                        >
+                          <div class="media-left">
+                            <div class="item-img">
+                              <img
+                                src="../../../assets/anh-san-pham/{{item.duongDan}}"
+                                alt="8YO MÃ ĐÁO THÀNH CÔNG ART TEE"
+                              />
+                            </div>
+                            <div
+                              class="item-remove"
+                              ng-click="xoaGioHang(item.idGioHang)"
+                            >
+                              <a href="">Xóa</a>
+                            </div>
+                          </div>
+                          <div class="media-right">
+                            <div class="item-info">
+                              <h3 class="item--title">
+                                <a
+                                  href="/products/8yo-ma-dao-thanh-cong-art-tee"
+                                >
+                                  {{item.tenSanPham}} {{item.tenChatLieu}}
+                                  {{item.tenPhongCach}} {{item.tenTayAo}}
+                                  {{item.tenCoAo}} {{item.tenHoaTiet}}</a
+                                >
+                              </h3>
+
+                              <div class="item--variant">
+                                <span>
+                                  {{item.tenMauSac}} /
+                                  {{item.tenKichThuoc}}</span
+                                >
+                              </div>
+                            </div>
+                            <div class="item-price">
+                              <p>
+                                <span> {{item.donGiaSp | number:0}}VND</span>
+
+                                <!-- <del>350,000₫</del> -->
+                              </p>
+                            </div>
+                          </div>
+                          <div class="media-total">
+                            <div class="item-total-price">
+                              <span class="line-item-total"
+                                >{{item.donGia}}VND</span
+                              >
+                            </div>
+
+                            <div class="item-qty">
+                              <div
+                                class="qty quantity-partent qty-click clearfix"
+                              >
+                                <button
+                                  type="button"
+                                  class="qtyminus qty-btn"
+                                  ng-click="decreaseQuantity(item)"
+                                >
+                                  -
+                                </button>
+                                <input
+                                  ng-model="item.soLuong"
+                                  type="text"
+                                  size="4"
+                                  name="updates[]"
+                                  min="1"
+                                  class="tc line-item-qty item-quantity"
+                                />
+                                <button
+                                  type="button"
+                                  class="qtyplus qty-btn"
+                                  ng-click="increaseQuantity(item)"
+                                >
+                                  +
+                                </button>
+                              </div>
+                              <div ng-if="item.soLuongSp <= 10">
+                                <span style="color: red"
+                                  >Chỉ còn {{item.soLuongSp}} sản phẩm</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 sidebarCart-sticky">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <h2 class="summary-title">Thông tin đơn hàng</h2>
+
+                  <div class="summary-total">
+                    <p>Tổng tiền: <span>{{tongGiaTri | number:0}}VND</span></p>
+                  </div>
+                  <div class="summary-action">
+                    <p>Phí vận chuyển sẽ được tính ở trang thanh toán.</p>
+                    <p>Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</p>
+
+                    <div class="summary-button">
+                      <a
+                        id="btnCart-checkout"
+                        class="checkout-btn btnred"
+                        href="#thanh-toan-onl"
+                        ng-if="gioHangList.length != 0"
+                        >THANH TOÁN
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-summary-block order-summary-notify">
+                  <div class="summary-warning alert-order">
+                    <p class="textmr"><strong>Chính sách mua hàng</strong></p>
+                    <p>
+                      Hiện chúng tôi chỉ áp dụng thanh toán với đơn hàng có giá
+                      trị tối thiểu <strong>0₫ </strong> trở lên.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

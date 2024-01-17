@@ -1,0 +1,185 @@
+<div class="d-flex justify-content-center">
+  <div ng-if="isLoggedIn==false">
+    <main class="wrapperMain_content">
+      <div id="login">
+        <div class="accounttype">
+          <h2 class="text-center">Đăng Nhập</h2>
+        </div>
+        <form>
+          <div class="clearfix large_form">
+            <input
+              required=""
+              type="text"
+              value=""
+              placeholder="Email hoặc số điện thoại"
+              class="text"
+              ng-model="user.email"
+              fdprocessedid="3l1joc"
+            />
+          </div>
+
+          <div class="clearfix large_form large_form-mrb">
+            <input
+              required=""
+              type="password"
+              value=""
+              name="customer[password]"
+              id="customer_password"
+              ng-model="user.matKhau"
+              placeholder="Mật khẩu"
+              class="text"
+              size="16"
+              fdprocessedid="vqke7p"
+            />
+          </div>
+
+          <div class="clearfix large_form sitebox-recaptcha">
+            This site is protected by reCAPTCHA and the Google
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noreferrer"
+              >Privacy Policy</a
+            >
+            and
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noreferrer"
+              >Terms of Service</a
+            >
+            apply.
+          </div>
+          <div class="clearfix custommer_account_action">
+            <div class="action_bottom">
+              <button
+                class="btn btn-signin button dark"
+                type="submit"
+                fdprocessedid="2wf5kf"
+                ng-click="login()"
+              >
+                Đăng nhập
+              </button>
+            </div>
+            <div class="req_pass">
+              <a href="#quen-mat-khau">Quên mật khẩu?</a><br />
+              hoặc <a href="#singup" title="Đăng ký">Đăng ký</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div
+          id="liveToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          data-bs-delay="1100"
+        >
+          <div class="toast-body">
+            <span class="icon_error">
+              <i class="fa-solid fa-xmark fa-xl"></i>
+            </span>
+            <span class="message_error"> {{message}} </span>
+            <div id="myProgress">
+              <div id="error"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: "Arial", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wrapperMain_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1vh;
+  }
+
+  .header-page {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #login {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  .large_form {
+    margin-bottom: 20px;
+  }
+
+  .text {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .sitebox-recaptcha {
+    margin-bottom: 20px;
+  }
+
+  .custommer_account_action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .action_bottom {
+    flex-grow: 1;
+  }
+
+  .btn-signin {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-signin:hover {
+    background-color: #45a049;
+  }
+
+  .req_pass {
+    text-align: right;
+  }
+
+  .req_pass a {
+    color: #4caf50;
+    text-decoration: none;
+  }
+
+  .req_pass a:hover {
+    text-decoration: underline;
+  }
+
+  .center-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .remove-bullet {
+    list-style-type: none;
+    padding: 0; /* Đặt padding về 0 để loại bỏ khoảng trắng */
+  }
+</style>

@@ -1,0 +1,202 @@
+<style>
+  .file-upload-wrapper {
+    width: 100px;
+    /* Điều chỉnh chiều rộng theo ý muốn */
+    height: 100px;
+    /* Điều chỉnh chiều cao theo ý muốn */
+    border-radius: 50%;
+    /* Làm cho nút tròn */
+    overflow: hidden;
+    /* Đảm bảo nội dung không bị tràn ra ngoài */
+  }
+
+
+  .file-upload {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .table_img {
+    border-radius: 50%;
+    width: 260px;
+    height: 297px;
+    margin-left: 60px;
+  }
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  #dropDownVoucher {
+    position: absolute;
+    background-color: #f0f0f0;
+    z-index: 1000;
+    width: 410px;
+    max-height: 200px;
+    overflow-y: auto;
+    cursor: pointer;
+    /* padding: 0px 0px; */
+  }
+
+  #dropDown {
+    position: absolute;
+    background-color: #f0f0f0;
+    z-index: 1000;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    cursor: pointer;
+    padding: 10px 5px;
+  }
+
+  #dropDown li {
+    /* margin: 10px; */
+    list-style: none;
+  }
+
+  #dropDown li:hover {
+    background-color: #fff;
+  }
+</style>
+<main class="content">
+  <div class="container-fluid p-0">
+    <div class="row">
+      <div class="card flex-fill">
+        <div class="card-body d-flex">
+          <div class="align-self-center w-100">
+            <h4 class="mb-4">CẬP NHẬT NHÂN VIÊN</h4>
+            <form>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <div class="uploadfile">
+                    <label for="product-image">
+                      <i ng-if="!detailNhanVien.anhDaiDien" style="font-size: 250px" class="fas fa-user-circle"
+                        aria-hidden="true"></i>
+                      <img ng-if="detailNhanVien.anhDaiDien"
+                        ng-src="../../../assets/anh-nguoi-dung/{{detailNhanVien.anhDaiDien}}" class="table_img" />
+                      <input type="file" multiple class="file-upload-input" id="product-image"
+                        data-mdb-file-upload="file-upload" style="display: none" />
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-6 mb-6">
+                      <label class="form-label">Ngày sinh <span style="color: red">*</span>:</label><br>
+
+                      <input type="date" class="form-control" ng-model="detailNhanVien.ngaySinh">
+
+                    </div>
+                    <div class="col-md-6 mb-6">
+                      <label class="form-label">Giới tính <span style="color: red">*</span>:</label><br>
+
+                      <input ng-model="detailNhanVien.gioiTinh" checked type="radio" name="gender" ng-value="true"
+                        class="form-check-input" />
+                      <label class="form-check-label"> Nam </label>
+
+                      <input type="radio" ng-model="detailNhanVien.gioiTinh" name="gender" ng-value="false"
+                        class="form-check-input ms-3" />
+                      <label class="form-check-label"> Nữ </label>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label">Số điện thoại <span style="color: red">*</span>:</label>
+                      <input type="text" class="form-control" ng-model="detailNhanVien.soDienThoai" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label class="form-label">Email <span style="color: red">*</span>:</label>
+                      <input type="text" class="form-control" ng-model="detailNhanVien.email" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-5">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Tên nhân viên<span style="color: red">*</span>:</label>
+                  <input type="text" class="form-control" ng-model="detailNhanVien.hoTen">
+                </div>
+                <div class="col-md-8">
+                  <label class="form-label">Địa chỉ cụ thể <span style="color: red">*</span>:</label>
+                  <input type="text" class="form-control" ng-model="detailNhanVien.diaChiCuThe">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Trạng thái <span style="color: red">*</span>:</label><br>
+
+                  <input ng-model="detailNhanVien.daXoa" checked type="radio" name="trangThai" ng-value="false"
+                    class="form-check-input" />
+                  <label class="form-check-label"> Đang làm </label>
+
+                  <input type="radio" ng-model="detailNhanVien.daXoa" name="trangThai" ng-value="true"
+                    class="form-check-input ms-3" />
+                  <label class="form-check-label"> Đã nghỉ </label>
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label class="form-label">Tỉnh / Thành Phố</label><br>
+                      <div class="dropdown-container">
+                        <input type="text" ng-model="detailNhanVien.tinhThanhPho"
+                          ng-click="toggleAPI($event,'ThanhPho')" class="form-control" />
+                        <ul ng-show="showDropDownThanhPho" id="dropDown">
+                          <li ng-repeat="city in cityOptions" ng-model="detailNhanVien.tinhThanhPho"
+                            ng-click="selectOptionThanhPho( city.name)">
+                            {{city.name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Quận / Huyện</label><br>
+                      <div class="dropdown-container">
+                        <input type="text" ng-model="detailNhanVien.quanHuyen" ng-click="toggleAPI($event,'QuanHuyen')"
+                          class="form-control" />
+                        <ul ng-show="showDropDownQuanHuyen" id="dropDown">
+                          <li ng-repeat="district in districtOptions" ng-model="detailNhanVien.quanHuyen"
+                            ng-click="selectOptionQuanHuyen( district.name)">
+                            {{district.name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Phường / Xã </label><br>
+                      <div class="dropdown-container">
+                        <input type="text" ng-model="detailNhanVien.phuongXa" ng-click="toggleAPI($event,'PhuongXa')"
+                          class="form-control" />
+                        <ul ng-show="showDropDownPhuongXa" id="dropDown">
+                          <li ng-repeat="ward in wardOptions" ng-model="detailNhanVien.phuongXa"
+                            ng-click="selectOptionPhuongXa( ward.name)">
+                            {{ward.name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                  <a type="button" class="btn btn-warning" ng-click="update($event)">Cập nhật nhân viên</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1100">
+        <div class="toast-body">
+          <span class="icon_error">
+            <i class="fa-solid fa-xmark fa-xl"></i>
+          </span>
+          <span class="message_error">
+            {{message}}
+          </span>
+          <div id="myProgress">
+            <div id="error"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>

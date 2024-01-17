@@ -1,0 +1,427 @@
+<main class="wrapperMain_content" ng-controller="loginController">
+  <div class="layout-productDetail layout-pageProduct">
+    <section
+      class="productDetail-information productDetail_style__01"
+      ng-repeat="sanPhamChiTiet in listNewSanPhamChiTiet"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xs-12 productDetail--gallery">
+            <div class="product-container-gallery">
+              <div class="wrapbox-image">
+                <div
+                  id="carouselExampleInterval"
+                  class="carousel slide"
+                  data-bs-ride="carousel"
+                >
+                  <div class="carousel-inner">
+                    <div
+                      class="carousel-item"
+                      ng-class="{'active': $index===0}"
+                      data-bs-interval="3000"
+                      ng-repeat="hinhAnh in sanPhamChiTiet.duongDan"
+                    >
+                      <img
+                        ng-if="!showSPCT"
+                        ng-src="../../../assets/anh-san-pham/{{hinhAnh}}"
+                        class="d-block w-100"
+                      />
+                      <img
+                        ng-if="showSPCT"
+                        ng-src="../../../assets/anh-san-pham/{{sanPhamCT.duongDan}}"
+                        class="d-block w-100"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="prev"
+                  >
+                    <span
+                      class="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                  <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="next"
+                  >
+                    <span
+                      class="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-6 col-sm-12 col-xs-12 productDetail--content"
+            id="detail-product"
+          >
+            <div class="product-container-detail">
+              <div class="product-container-order">
+                <div class="product-variants">
+                  <form id="add-item-form" class="variants clearfix">
+                    <div class="product-heading">
+                      <h1 style="text-transform: uppercase">
+                        {{sanPhamChiTiet.tenSanPham}}
+                        {{sanPhamChiTiet.tenPhongCach}}
+                        {{sanPhamChiTiet.tenHoaTiet}}
+                        {{sanPhamChiTiet.tenChatLieu}}
+                        {{sanPhamChiTiet.tenTayAo}} {{sanPhamChiTiet.tenCoAo}}
+                      </h1>
+                    </div>
+                    <div>
+                      <div class="mb-3">
+                        <span>Trạng thái:</span>
+                        <span ng-if="trangThai===false" class="text-g">
+                          Còn hàng</span
+                        >
+
+                        <span ng-if="trangThai===true" class="text-glow">
+                          Hết hàng</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      ng-if="!showSPCT"
+                      class="product-price"
+                      id="price-preview"
+                    >
+                      <span
+                        class="pro-price"
+                        ng-if="sanPhamChiTiet.giaMax!=sanPhamChiTiet.giaMin"
+                        >{{sanPhamChiTiet.giaMin | number}} VND -
+                        {{sanPhamChiTiet.giaMax | number}} VND</span
+                      >
+                      <span
+                        class="pro-price"
+                        ng-if="sanPhamChiTiet.giaMax==sanPhamChiTiet.giaMin"
+                        >{{sanPhamChiTiet.giaMin | number}} VND</span
+                      >
+                    </div>
+                    <div
+                      ng-if="showSPCT"
+                      class="product-price"
+                      id="price-preview"
+                    >
+                      <span class="pro-price"
+                        >{{sanPhamCT.donGia | number}} VND</span
+                      >
+                    </div>
+                    <div class="select-swatch clearfix">
+                      <div class="swatch">
+                        <div class="title-swap header">
+                          Màu sắc: <strong></strong>
+                        </div>
+                        <div class="select-swap">
+                          <div
+                            class="n-sd swatch-element m"
+                            ng-repeat="mauSac in sanPhamChiTiet.tenMauSac"
+                            ng-click="selectdMauSac(mauSac)"
+                          >
+                            <input
+                              class="variant-1"
+                              ng-model="searchMauSac"
+                              type="radio"
+                              ng-value="mauSac"
+                            />
+                            <label
+                              ng-if="searchMauSac == mauSac"
+                              class="sd"
+                              for="swatch-1-m"
+                            >
+                              <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info"
+                              >
+                                <i class="fa-solid fa-check"></i>
+                              </span>
+                              <span>{{mauSac}}</span>
+                            </label>
+                            <label
+                              ng-if="searchMauSac != mauSac"
+                              for="swatch-1-m"
+                            >
+                              <span>{{mauSac}}</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="swatch">
+                        <div class="title-swap header">Kích thước:</div>
+                        <div class="select-swap">
+                          <div
+                            class="n-sd swatch-element m"
+                            ng-repeat="kichThuoc in sanPhamChiTiet.tenKichThuoc"
+                            ng-click="selectdKichThuoc(kichThuoc)"
+                          >
+                            <input
+                              class="variant-1"
+                              ng-model="searchKichThuoc"
+                              type="radio"
+                              ng-value="kichThuoc"
+                            />
+
+                            <label
+                              ng-if="searchKichThuoc == kichThuoc"
+                              class="sd"
+                              for="swatch-1-m"
+                            >
+                              <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info"
+                              >
+                                <i class="fa-solid fa-check"></i>
+                              </span>
+                              <span>{{kichThuoc}}</span>
+                            </label>
+                            <label
+                              ng-if="searchKichThuoc != kichThuoc"
+                              for="swatch-1-m"
+                            >
+                              <span>{{kichThuoc}}</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="select-actions hidden-xs hidden-sm clearfix">
+                      <div class="row">
+                        <div
+                          class="d-flex flex-row col-md-3"
+                          ng-if="isLoggedIn==true"
+                        >
+                          <button
+                            class="btn btn-link px-2"
+                            ng-click="decrementQuantity()"
+                            ng-disabled="!searchMauSac || !searchKichThuoc"
+                          >
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <input
+                            type="number"
+                            ng-model="goiHang.soLuong"
+                            class="form-control form-control-sm"
+                            style="width: 60px"
+                            ng-disabled="!searchMauSac || !searchKichThuoc"
+                          />
+                          <button
+                            class="btn btn-link px-2"
+                            ng-click="incrementQuantity()"
+                            ng-disabled="!searchMauSac || !searchKichThuoc"
+                          >
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-6 midle" ng-if="isLoggedIn==true">
+                          <div ng-if="sanPhamCT.soLuong > 0">
+                            <span ng-if="trangThai===false" class="u">
+                              {{sanPhamCT.soLuong}} sản phẩm có sẵn
+                            </span>
+                            <span ng-if="trangThai===true" class="u">
+                              {{soLuong}} sản phẩm có sẵn
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="d-flex flex-row col-md-3"
+                          ng-if="isLoggedIn==false"
+                        >
+                          <button
+                            class="btn btn-link px-2"
+                            ng-click="decrementQuantity()"
+                          >
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <input
+                            type="number"
+                            ng-model="goiHang.soLuong"
+                            class="form-control form-control-sm"
+                            style="width: 60px"
+                          />
+                          <button
+                            class="btn btn-link px-2"
+                            ng-click="incrementQuantity()"
+                          >
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-6 midle" ng-if="isLoggedIn==false">
+                          <div ng-if="sanPhamCT.soLuong > 0">
+                            <p>
+                              {{sanPhamCT.soLuong}} sản phẩm có sẵn trong cửa
+                              hàng
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mr-3 mt-3">
+                        <div class="col-md-4" ng-if="isLoggedIn==true">
+                          <button
+                            type="button"
+                            ng-click="addGioHang()"
+                            class="add-to-cartProduct btnred button dark btn-addtocart addtocart-modal"
+                            name="add"
+                          >
+                            Thêm vào giỏ hàng
+                          </button>
+                        </div>
+                        <div class="col-md-4" ng-if="isLoggedIn==false">
+                          <button
+                            type="button"
+                            ng-click="redirectToPage()"
+                            class="add-to-cartProduct btnred button dark btn-addtocart addtocart-modal"
+                            name="add"
+                          >
+                            Thêm vào giỏ hàng
+                          </button>
+                        </div>
+                        <div class="col-md-6" ng-if="isLoggedIn==true">
+                          <button
+                            ng-click="muaNgay()"
+                            type="button"
+                            class="add-to-cartProduct button dark btn-addtocart addtocart-modal hidden"
+                            name="add"
+                          >
+                            Mua ngay
+                          </button>
+                        </div>
+                        <div class="col-md-6" ng-if="isLoggedIn==false">
+                          <button
+                            type="button"
+                            ng-click="redirectToPage()"
+                            class="add-to-cartProduct button dark btn-addtocart addtocart-modal hidden"
+                            name="add"
+                          >
+                            Mua ngay
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="product-available">
+                <p class="txt-inventory"></p>
+              </div>
+              <div class="product-coutdown product-coutdown-jsdata"></div>
+
+              <div class="product-description product-description--accordion">
+                <div class="panel-group opened">
+                  <div class="panel-title">
+                    <h2>THông tin sản phẩm</h2>
+                  </div>
+                  <div class="panel-description" style="display: block">
+                    <div class="description-productdetail typeList-style">
+                      Chất liệu: Mero co dãn cao cấp
+                      <div>Có quần bảo hộ bên trong</div>
+                      <div>
+                        Chân váy có dây rút, phù hợp với mọi thể trạng, rất dễ
+                        phối đồ. Bên trong chân váy được 8YO may kèm quần bảo hộ
+                        giúp các bạn nữ không lo khi mặc.
+                      </div>
+                      <div>&nbsp;</div>
+                      <div>Bảng size chân váy:</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-group">
+                  <div class="panel-title">
+                    <h2>CÓ THỂ BẠN CHƯA BIẾT</h2>
+                  </div>
+                  <div>
+                    <div class="product-deliverly">
+                      <ul class="infoList-deliverly">
+                        <li>
+                          <span>
+                            <img
+                              data-src="../../theme.hstatic.net/200000258387/1000809443/14/product_deliverly_1_icof1cd.png?v=156"
+                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                              alt="Cam kết 100% ch&#237;nh h&#227;ng Local Brand 8YO"
+                            />
+                          </span>
+                          Cam kết 100% chính hãng Local Brand 8YO
+                        </li>
+                        <li>
+                          <!-- <span>
+                            <img class="lazyload"
+                              data-src="../../theme.hstatic.net/200000258387/1000809443/14/product_deliverly_2_icof1cd.png?v=156"
+                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                              alt="Giao h&#224;ng dự kiến: 
+    Từ 3-5 ng&#224;y từ l&#250;c đặt h&#224;ng" />
+                          </span> -->
+                          Giao hàng dự kiến: <br />
+                          <strong>Từ 3-5 ngày từ lúc đặt hàng</strong>
+                        </li>
+                        <li>
+                          <!-- <span>
+                            <img class="lazyload"
+                              data-src="../../theme.hstatic.net/200000258387/1000809443/14/product_deliverly_3_icof1cd.png?v=156"
+                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                              alt="Nhận đơn online 24/7" />
+                          </span> -->
+                          Nhận đơn online 24/7
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="productDetail-listprod productDetail-related">
+      <div class="container">
+        <div class="listprod-title">
+          <h2>Có thể bạn cũng thích</h2>
+        </div>
+        <div class="listprod-content">
+          <div
+            class="listProduct-related listProduct-resize owl-carousel owlCarousel-style"
+            id="owlProduct-related"
+          ></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<style>
+  .selected {
+    border: 2px solid red;
+  }
+
+  .text-glow {
+    color: red;
+    /* Màu của văn bản */
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    /* Màu sáng, độ mờ và màu ánh sáng */
+  }
+
+  .text-g {
+    color: green;
+    /* Màu của văn bản */
+    text-shadow: 0 0 10px rgba(0, 255, 17, 0.5);
+    /* Màu sáng, độ mờ và màu ánh sáng */
+  }
+
+  .text-gl {
+    color: blue;
+    /* Màu của văn bản */
+    text-shadow: 0 0 10px rgba(0, 51, 255, 0.5);
+    /* Màu sáng, độ mờ và màu ánh sáng */
+  }
+
+  u {
+    display: flex;
+    justify-content: center;
+  }
+</style>

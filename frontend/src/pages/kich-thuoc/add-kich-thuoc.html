@@ -1,0 +1,41 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="card flex-fill">
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <h4>THÊM KÍCH THƯỚC</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Mã Kích Thước</label>
+                                <input type="text" disabled class="form-control" ng-model="formKichThuoc.ma">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tên Kích Thước</label>
+                                <input type="text" class="form-control" ng-model="formKichThuoc.ten">
+                            </div>
+                        </form>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a type="button" id="liveToastBtn" class="btn btn-primary" ng-click="add($event)">Thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1100">
+            <div class="toast-body">
+                <span class="icon_error">
+                    <i class="fa-solid fa-xmark fa-xl"></i>
+                </span>
+                <span class="message_error">
+                    {{message}}
+                </span>
+                <div id="myProgress">
+                    <div id="error"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

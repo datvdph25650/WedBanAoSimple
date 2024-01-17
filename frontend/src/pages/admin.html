@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="admin">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Admin</title>
+    <link
+      class="js-stylesheet"
+      href="../../css/custom/light.css"
+      rel="stylesheet"
+    />
+    <link
+      class="js-stylesheet"
+      href="../../css/custom/css.css"
+      rel="stylesheet"
+    />
+    <link
+      class="js-stylesheet"
+      href="../../css/custom/user.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="canonical" href="icons-font-awesome.html" />
+    <link
+      href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/plugins/standard/file-upload.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    data-theme="default"
+    data-layout="fluid"
+    data-sidebar-position="left"
+    data-sidebar-layout="default"
+  >
+    <div class="d-flex justify-content-center">
+      <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+          <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="#/admin">
+              <span class="sidebar-brand-text align-middle"> SIMPLE </span>
+            </a>
+            <ul class="sidebar-nav">
+              <li class="sidebar-item" ng-if="role==='Admin'">
+                <a class="sidebar-link" href="#thong-ke/hien-thi">
+                  <i class="align-middle me-2 fas fa-fw fa-chart-pie"></i>
+                  <span class="align-middle">Thống Kê</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#/hoa-don/hien-thi">
+                  <i class="align-middle me-2 fas fa-fw fa-clipboard-check"></i>
+                  <span class="align-middle">Quản Lý Đơn Hàng</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#/ban-hang/tai-quay">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  <span class="align-middle">Bán Hàng Tại Quầy</span>
+                </a>
+              </li>
+              <li class="sidebar-item" ng-if="role==='Admin'">
+                <a
+                  data-bs-target="#taiKhoan"
+                  href=""
+                  data-bs-toggle="collapse"
+                  class="sidebar-link collapsed"
+                >
+                  <i class="fa-regular fa-user"></i>
+                  <span class="align-middle">Quản Lý Tài Khoản</span>
+                </a>
+                <ul
+                  id="taiKhoan"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#khach-hang/hien-thi"
+                      >Khách Hàng</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#nhan-vien/hien-thi"
+                      >Nhân Viên
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  data-bs-target="#sanPham"
+                  href=""
+                  data-bs-toggle="collapse"
+                  class="sidebar-link collapsed"
+                >
+                  <i class="align-middle me-2 fas fa-fw fa-tshirt"></i>
+                  <span class="align-middle">Quản Lý Sản Phẩm</span>
+                </a>
+                <ul
+                  id="sanPham"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/san-pham/hien-thi"
+                      >Sản Phẩm
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/mau-sac/hien-thi"
+                      >Màu Sắc
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/kich-thuoc/hien-thi"
+                      >Kích Thước
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/chat-lieu/hien-thi"
+                      >Chất Liệu
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/phong-cach/hien-thi"
+                      >Phong Cách
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/hoa-tiet/hien-thi"
+                      >Họa Tiết
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/co-ao/hien-thi">Cổ Áo </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#/tay-ao/hien-thi">Tay Áo </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item" ng-if="role==='Admin'">
+                <a
+                  href="#khuyenMai"
+                  data-bs-toggle="collapse"
+                  class="sidebar-link collapsed"
+                >
+                  <i class="align-middle me-2 fas fa-fw fa-gift"></i>
+                  <span class="align-middle">Quản Lý Mã Giảm Giá</span>
+                </a>
+                <ul
+                  id="khuyenMai"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#ma-giam-gia/hien-thi"
+                      >Mã Giảm Giá</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="main">
+          <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle ps-3">
+              <i class="hamburger align-self-center"></i>
+            </a>
+            <div class="navbar-collapse collapse">
+              <ul class="navbar-nav navbar-align">
+                <li class="nav-item dropdown" ng-click="thongBao()">
+                  <a
+                    class="nav-icon dropdown-toggle"
+                    href="#"
+                    id="alertsDropdown"
+                    data-bs-toggle="dropdown"
+                  >
+                    <div>
+                      <div class="position-relative">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="indicator">{{listHoaDon.length}}</span>
+                      </div>
+                    </div>
+                  </a>
+                  <div
+                    class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+                    aria-labelledby="alertsDropdown"
+                  >
+                    <div
+                      class="dropdown-menu-footer"
+                      ng-repeat="item in listHoaDon"
+                    >
+                      <a
+                        href="admin.html?#/hoa-don/update/{{item.id}}"
+                        class="text-muted"
+                        >Mã hóa đơn: {{item.ma}}</a
+                      >
+                      <br />
+                      <a
+                        href="admin.html?#/hoa-don/update/{{item.id}}"
+                        class="text-muted"
+                        >Tổng tiền: {{item.tongTien| number}} VND</a
+                      >
+                    </div>
+                    <hr />
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-icon pe-md-0 dropdown-toggle"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i
+                      ng-if="!storedUser.anhDaiDien"
+                      style="font-size: 40px"
+                      class="fas fa-user-circle"
+                      aria-hidden="true"
+                    ></i>
+                    <img
+                      ng-if="storedUser.anhDaiDien"
+                      ng-src="../../../assets/anh-nguoi-dung/{{storedUser.anhDaiDien}}"
+                      alt="Employee Image"
+                      class="table_img"
+                    />
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="#"
+                      ><i
+                        class="align-middle me-1"
+                        data-feather="pie-chart"
+                      ></i>
+                      {{storedUser.hoTen}}</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="#/nhan-vien/update/{{storedUser.id}}"
+                      ><i class="align-middle me-1" data-feather="user"></i>
+                      Thông tin cá nhân</a
+                    >
+
+                    <div class="dropdown-divider"></div>
+                    <!-- <a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1"
+                      data-feather="settings"></i>
+                    Settings & Privacy</a>
+                  <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i>
+                    Help Center</a> -->
+                    <!-- <div class="dropdown-divider"></div> -->
+                    <a class="dropdown-item" ng-click="logOut()">Đăng xuất</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <section ng-view></section>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../js/custom/main.js" type="text/javascript"></script>
+
+    <script src="../../js/custom/don-hang.js"></script>
+    <script src="../../js/plugin/bootstrap.bundle.min.js"></script>
+    <script src="../../lib/angular.js"></script>
+    <script src="../../lib/angular-route.js"></script>
+    <script src="../route_admin.js"></script>
+    <script src="../config/api.js"></script>
+    <script
+      src=" https://kit.fontawesome.com/6d12ee419f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+    <!-- <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script> -->
+    <!-- <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> -->
+
+    <script
+      script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script src="../controller/tai-khoan/adminController.js"></script>
+
+    <script src="../controller/san-pham/addSanPhamController.js"></script>
+    <script src="../controller/san-pham/updateSanPhamController.js"></script>
+    <script src="../controller/san-pham/hienThiSanPhamController.js"></script>
+
+    <script src="../controller/san-pham-chi-tiet/hienThiSanPhamChiTietController.js"></script>
+    <script src="../controller/san-pham-chi-tiet/addSanPhamChiTietController.js"></script>
+
+    <script src="../controller/chat-lieu/hienThiChatLieuController.js"></script>
+    <script src="../controller/chat-lieu/updateChatLieuController.js"></script>
+    <script src="../controller/chat-lieu/addChatLieuController.js"></script>
+
+    <script src="../controller/hoa-tiet/hienThiHoaTietController.js"></script>
+    <script src="../controller/hoa-tiet/addHoaTietController.js"></script>
+    <script src="../controller/hoa-tiet/updateHoaTietController.js"></script>
+
+    <script src="../controller/mau-sac/hienThiMauSacController.js"></script>
+    <script src="../controller/mau-sac/addMauSacController.js"></script>
+    <script src="../controller/mau-sac/updateMauSacController.js"></script>
+
+    <script src="../controller/kich-thuoc/hienThiKichThuocController.js"></script>
+    <script src="../controller/kich-thuoc/addKichThuocController.js"></script>
+    <script src="../controller/kich-thuoc/updateKichThuocController.js"></script>
+
+    <script src="../controller/phong-cach/hienThiPhongCachController.js"></script>
+    <script src="../controller/phong-cach/addPhongCachController.js"></script>
+    <script src="../controller/phong-cach/updatePhongCachController.js"></script>
+
+    <script src="../controller/nhan-vien/hienThiNhanVienController.js"></script>
+    <script src="../controller/nhan-vien/addNhanVienController.js"></script>
+    <script src="../controller/nhan-vien/updateNhanVienController.js"></script>
+
+    <script src="../controller/phong-cach/hienThiPhongCachController.js"></script>
+    <script src="../controller/phong-cach/addPhongCachController.js"></script>
+    <script src="../controller/phong-cach/updatePhongCachController.js"></script>
+
+    <script src="../controller/hoa-don/hienThiHoaDonController.js"></script>
+    <script src="../controller/hoa-don/DonHangController.js"></script>
+    <!-- <script src="../controller/hoa-don/HoaDonController.js"></script> -->
+    <script src="../controller/hoa-don/addHoaDonController.js"></script>
+
+    <script src="../controller/co-ao/hienThiCoAoController.js"></script>
+    <script src="../controller/co-ao/addCoAoController.js"></script>
+    <script src="../controller/co-ao/updateCoAoController.js"></script>
+
+    <script src="../controller/tay-ao/hienThiTayAoController.js"></script>
+    <script src="../controller/tay-ao/addTayAoController.js"></script>
+    <script src="../controller/tay-ao/updateTayAoController.js"></script>
+
+    <script src="../controller/khach-hang/hienThiKhachHangController.js"></script>
+    <script src="../controller/khach-hang/addKhachHangController.js"></script>
+    <script src="../controller/khach-hang/updateKhachHangController.js"></script>
+
+    <script src="../controller/ma-giam-gia/hienThiMaGiamGiaController.js"></script>
+    <script src="../controller/ma-giam-gia/addMaGiamGiaController.js"></script>
+    <script src="../controller/ma-giam-gia/updateMaGiamGiaController.js"></script>
+
+    <script src="../controller/tai-khoan/nhanvienloginController.js"></script>
+
+    <script src="../controller/ma-giam-gia-chi-tiet/maGiamGiaChiTietController.js"></script>
+
+    <script src="../controller/thong-ke/hienThiThongKeControler.js"></script>
+  </body>
+</html>

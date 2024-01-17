@@ -1,0 +1,136 @@
+<main class="content">
+  <div class="container-fluid p-0">
+    <div class="row">
+      <div class="card flex-fill">
+        <div class="card-body d-flex">
+          <div class="align-self-center w-100">
+            <h4 class="mb-4">DANH SÁCH NHÂN VIÊN</h4>
+            <div class="row pb-4 pr-2">
+              <div class="search-container col-md-6">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" ng-model="searchKeyword" placeholder="Tìm kiếm theo mã, họ tên, email, số điện thoại"
+                  ng-change="search()" class="search-input" />
+              </div>
+              <div class="col-md-6 text-end">
+                <label for="file-upload" class="custom-file-upload btn btn-success">
+                  <i class="fa-solid fa-plus"></i>
+                  Thêm Excel
+                </label>
+                <input type="file" id="file-upload" style="display: none"
+                  onchange="angular.element(this).scope().uploadExcel(this.files)" />
+                <a type="button" class="btn btn-primary" ng-click="exportToExcel()">
+                  <i class="fa-solid fa-plus"></i>
+                  Tải file mẫu
+                </a>
+                <a type="button" class="btn btn-primary" href="#/nhan-vien/add">
+                  <i class="fa-solid fa-plus"></i>
+                  Thêm nhân viên
+                </a>
+
+              </div>
+            </div>
+            <div class="mb-3" class="form-check">
+              <label class="form-label">Trạng thái</label><br>
+
+              <input type="radio" class="form-check-input" ng-click="getKhachHang()" checked name="trang_thai">
+              <label class="form-check-label">
+                Tất cả
+              </label>
+              <input type="radio" class="form-check-input ms-3" name="trang_thai" ng-value="false" ng-change="loc()"
+                ng-model="selectedOption">
+              <label class="form-check-label">
+                Đang làm
+              </label>
+              <input type="radio" class="form-check-input ms-3" name="trang_thai" ng-value="true" ng-change="loc()"
+                ng-model="selectedOption">
+              <label class="form-check-label">
+                Đã nghỉ
+              </label>
+
+            </div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Tên nhân viên</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Ngày tham gia</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="nhanVien in listNhanVien">
+                  <th scope="row">{{customIndex+$index+1}}</th>
+
+                  <th scope="row">{{nhanVien.hoTen}}</th>
+                  <th scope="row">{{nhanVien.email}}</th>
+                  <th scope="row">{{nhanVien.soDienThoai}}</th>
+                  <th scope="row">
+                    {{nhanVien.ngayTao | date: 'dd/MM/yyyy hh:mm a'}}
+                  </th>
+                  <th>
+                    <p ng-class="{' text-g ': !nhanVien.daXoa
+                    ,'text-glow':nhanVien.daXoa}">
+                      {{nhanVien.daXoa ? "Đã nghỉ" : "Đang làm"}}
+
+                    </p>
+                  </th>
+                  <th data-toggle="tooltip" data-placement="top" title="Cập nhật">
+                    <a href="#/nhan-vien/update/{{nhanVien.id}}">
+                      <i class="align-middle me-2 fas fa-fw fa-edit"></i>
+                    </a>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-if="listNhanVien.length === 0">
+              <p class="dataTables_empty_icon">
+                <img src="../../../assets/anh-san-pham/empty-product.png" alt="">
+              </p>
+              <p class="dataTables_empty_lable">
+                Không có dữ liệu
+              </p>
+            </div>
+            <nav aria-label="Page navigation example" ng-if="listNhanVien.length > 0">
+              <ul class="pagination justify-content-center">
+                <li class="page-item">
+                  <a class="page-link" ng-click="previousPage()" aria-label="Previous">
+                    <span aria-hidden="true">
+                      << </span>
+                  </a>
+                </li>
+                <li class="page-item" ng-repeat="page in visiblePages"
+                  ng-class="{ 'active': page.active === 'active' }">
+                  <a class="page-link" ng-click="changePage(page.page - 1)">{{ page.page
+                    }}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" ng-click="nextPage()"> >> </a>
+                </li>
+              </ul>
+              <p>Tổng số trang: {{ totalPages.length }}</p>
+            </nav>
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+              <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                data-bs-delay="1100">
+                <div class="toast-body">
+                  <span class="success">
+                    <i class="fa-solid fa-check fa-xl"></i>
+                  </span>
+                  <span class="message_error">
+                    {{message}}
+                  </span>
+                  <div id="myProgress">
+                    <div id="success"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

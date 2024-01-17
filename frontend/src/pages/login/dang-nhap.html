@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link class="js-stylesheet" href="../../../css/custom/css.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css" rel="stylesheet" />
+
+</head>
+
+<body ng-app="loginApp" ng-controller="nhanVienController">
+    <section class="vh-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 text-black">
+
+                    <div class="px-5 ms-xl-4">
+
+                        <img style=" width: 200px;" src="../../..//assets/logo/Simple.jpg" alt="Simple"
+                            class="img-responsive logoimg" />
+                    </div>
+
+                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 ">
+
+                        <form style="width: 23rem;">
+                            <div class=" mb-4">
+                                <label class="form-label">Email</label>
+
+                                <input type="email" ng-model="email" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class=" mb-4">
+                                <label class="form-label">Mật khẩu</label>
+
+                                <input type="password" ng-model="matKhau" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="pt-1 mb-4">
+                                <button class="btn btn-info btn-lg btn-block" type="button" ng-click="login()">Đăng
+                                    nhập</button>
+                            </div>
+
+                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Quên mật khẩu ?</a></p>
+                            <!-- <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p> -->
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-6 px-0 d-none d-sm-block">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                        class="img-fluid" alt="Phone image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.min.js"></script>
+
+    <script src="../../config/api.js"></script>
+
+    <script src="../../controller/tai-khoan/nhanvienloginController.js"></script>
+</body>
+
+
+
+<style>
+
+</style>
+
+</html>

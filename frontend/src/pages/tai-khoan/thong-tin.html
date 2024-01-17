@@ -1,0 +1,322 @@
+<main class="wrapperMain_content">
+  <div id="layout-cart">
+    <div class="wrapper-mainCart">
+      <div class="content-bodyCart">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12 sidebarCart-sticky">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form id="cartformpage">
+                    <div class="header-wrap">
+                      <div class="image-wrap">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <div class="row">
+                              <div class="ms-4 mb-5">
+                                <div class="uploadfile">
+                                  <label for="product-image">
+                                    <i
+                                      ng-if="!list.anhDaiDien"
+                                      style="font-size: 70px"
+                                      class="fas fa-user-circle"
+                                      aria-hidden="true"
+                                    ></i>
+                                    <img
+                                      ng-if="list.anhDaiDien"
+                                      src="../../../assets/anh-nguoi-dung/{{list.anhDaiDien}}"
+                                      alt="Employee Image"
+                                      class="table_img"
+                                    />
+                                    <input
+                                      type="file"
+                                      multiple
+                                      class="file-upload-input"
+                                      id="product-image"
+                                      data-mdb-file-upload="file-upload"
+                                      style="display: none"
+                                    />
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-7">
+                            <div class="text-header">
+                              <p>Xin chào, {{list.hoTen}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-shopping-cart"></i> </span>
+                          <a class="text" href="#don-hang"> Đơn hàng của tôi</a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-user"></i> </span>
+                          <a class="text" href="#thong-tin">
+                            Thông tin cá nhân</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="menu-nav-wrap">
+                      <ul>
+                        <li class="item-wrap">
+                          <span><i class="fas fa-map-marker-alt"></i> </span>
+                          <a class="text" href="#dia-chi"> Địa chỉ</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-4 content-children item-row">
+              <div class="mainCart-sidebar wrap-order-summary">
+                <div class="order-summary-block">
+                  <form>
+                    <div class="information-wrap" id="thong-tin">
+                      <div class="header-wrap">
+                        <span class="title">Thông tin cá nhân</span>
+                      </div>
+                      <div>
+                        <form method="POST">
+                          <div>
+                            <label>Họ và tên: </label>
+                            <input
+                              type="text"
+                              placeholder="Nhập họ và tên"
+                              ng-model="detailKhachHang.hoTen"
+                              name="name"
+                              required
+                            />
+                          </div>
+                          <br />
+                          <div class="input-wrap">
+                            <label>Email: {{detailKhachHang.email}} </label>
+                          </div>
+                          <br />
+                          <div class="input-wrap">
+                            <label
+                              >Số điện thoại: {{detailKhachHang.soDienThoai}}
+                            </label>
+                          </div>
+                          <br />
+                          <div class="input-wrap">
+                            <label>Giới tính</label>
+
+                            <div class="form-radio">
+                              <div class="radio">
+                                <input
+                                  ng-model="detailKhachHang.gioiTinh"
+                                  type="radio"
+                                  name="gender"
+                                  ng-value="true"
+                                />
+
+                                <label> Nam </label>
+                                <br />
+                              </div>
+                              <div class="radio">
+                                <input
+                                  ng-model="detailKhachHang.gioiTinh"
+                                  type="radio"
+                                  name="gender"
+                                  ng-value="false"
+                                />
+                                <label> Nữ </label>
+                              </div>
+                            </div>
+                            <br />
+                            <div class="input-wrap">
+                              <label>Ngày sinh: </label>
+
+                              <span class="error--message"> </span>
+
+                              <input
+                                type="date"
+                                placeholder="Nhập họ và tên"
+                                ng-model="detailKhachHang.ngaySinh"
+                                class="input__info input"
+                                name="name"
+                              />
+                            </div>
+                            <br />
+                          </div>
+                        </form>
+                      </div>
+
+                      <div class="btn-wrap">
+                        <button
+                          ng-click="updateKhachHang($event)"
+                          type="button"
+                          class="btn btn-primary btn-save-information"
+                        >
+                          Lưu thông tin
+                        </button>
+                      </div>
+                      <div class="btn-wrap">
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-save-information"
+                          ng-click="toggleFormVisibility()"
+                        >
+                          Đổi mật khẩu
+                        </button>
+                      </div>
+                      <form class="form-container" ng-show="showForm">
+                        <label class="form-label">Mật khẩu hiện tại:</label>
+                        <input
+                          class="form-input"
+                          type="password"
+                          ng-model="currentPassword"
+                          required
+                        />
+
+                        <label class="form-label">Mật khẩu mới:</label>
+                        <input
+                          class="form-input"
+                          type="password"
+                          ng-model="newPassword"
+                          required
+                        />
+
+                        <button
+                          class="form-button"
+                          type="button"
+                          ng-click="confirmChangePassword()"
+                        >
+                          Hoàn tất
+                        </button>
+                      </form>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-5 content-children item-row">
+              <div class="image-container">
+                <div class="uploadfile">
+                  <label for="product-image">
+                    <i
+                      ng-if="!detailKhachHang.anhDaiDien"
+                      style="font-size: 250px"
+                      class="fas fa-user-circle"
+                      aria-hidden="true"
+                    ></i>
+                    <img
+                      ng-if="detailKhachHang.anhDaiDien"
+                      src="../../../assets/anh-nguoi-dung/{{detailKhachHang.anhDaiDien}}"
+                      class="table_imgg"
+                    />
+                    <input
+                      type="file"
+                      multiple
+                      class="file-upload-input"
+                      id="product-image"
+                      data-mdb-file-upload="file-upload"
+                      style="display: none"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <div
+            class="modal fade"
+            id="updateSanPhamChiTiet"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="container-fluid">
+                    <form class="row">
+                      <h5>EMAIL</h5>
+
+                      <label for="">Mời nhập email</label><input type="email" />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: -150px; /* Ensure the container takes the full height of the parent */
+  }
+
+  .table_img {
+    width: 70px; /* Đặt chiều rộng mong muốn */
+    height: 70px; /* Đặt chiều cao mong muốn, nên giữ chiều rộng và chiều cao bằng nhau */
+    border-radius: 80%;
+    object-fit: cover; /* Tùy chọn, giữ tỷ lệ khung hình khi ảnh không phải là hình vuông */
+  }
+  .table_imgg {
+    width: 200px; /* Đặt chiều rộng mong muốn */
+    height: 200px; /* Đặt chiều cao mong muốn, nên giữ chiều rộng và chiều cao bằng nhau */
+    border-radius: 80%;
+    object-fit: cover; /* Tùy chọn, giữ tỷ lệ khung hình khi ảnh không phải là hình vuông */
+  }
+
+  .form-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .form-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .form-button:hover {
+    background-color: #45a049;
+  }
+</style>

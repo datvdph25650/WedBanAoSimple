@@ -1,0 +1,92 @@
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="card flex-fill">
+                <div class="card-body d-flex">
+                    <div class="align-self-center w-100">
+                        <h4>DANH SÁCH HỌA TIẾT</h4>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a type="button" class="btn btn-primary mb-3" href="#hoa-tiet/add">
+                                <i class="fa-solid fa-plus"></i>
+                                Thêm</a>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Mã họa tiết</th>
+                                    <th scope="col">Tên họa tiết</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Thao tác</th>
+
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="hoaTiet in listHoaTiet">
+                                <tr>
+                                    <th scope="row">{{customIndex+$index+1}}</th>
+                                    <th scope="row">{{hoaTiet.ma}}</th>
+                                    <th scope="row">{{hoaTiet.ten}}</th>
+                                    <th>
+                                        <p ng-class="{' text-g ': !hoaTiet.daXoa
+                                        ,'text-glow':hoaTiet.daXoa}">
+                                            {{hoaTiet.daXoa ? "Hủy kích hoạt" : "Kích hoạt"}}
+
+                                        </p>
+                                    </th>
+                                    <th data-toggle="tooltip" data-placement="top" title="Cập nhật">
+                                        <a href="#hoa-tiet/update/{{hoaTiet.id}}">
+                                            <i class="align-middle me-2 fas fa-fw fa-edit"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="listHoaTiet.length === 0">
+                            <p class="dataTables_empty_icon">
+                                <img src="../../../assets/anh-san-pham/empty-product.png" alt="">
+                            </p>
+                            <p class="dataTables_empty_lable">
+                                Không có dữ liệu
+                            </p>
+                        </div>
+                        <nav aria-label="Page navigation example" ng-if="listHoaTiet.length > 0">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" ng-click="previousPage()" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            << </span>
+                                    </a>
+                                </li>
+                                <li class="page-item" ng-repeat="page in visiblePages"
+                                    ng-class="{ 'active': page.active === 'active' }">
+                                    <a class="page-link" ng-click="changePage(page.page - 1)">{{ page.page
+                                        }}</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" ng-click="nextPage()"> >> </a>
+                                </li>
+                            </ul>
+                            <p>Tổng số trang: {{ totalPages.length }}</p>
+                        </nav>
+                        <div class="toast-container position-fixed top-0 end-0 p-3">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                                data-bs-delay="1000">
+                                <div class="toast-body">
+                                    <span class="success">
+                                        <i class="fa-solid fa-check fa-xl"></i>
+                                    </span>
+                                    <span class="message_error">
+                                        {{message}}
+                                    </span>
+                                    <div id="myProgress">
+                                        <div id="success"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

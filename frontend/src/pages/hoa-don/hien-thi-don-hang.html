@@ -1,0 +1,498 @@
+<main class="content">
+  <div class="container-fluid p-0">
+    <div class="row">
+      <div class="card flex-fill">
+        <div class="card-body d-flex">
+          <div class="timeline-container">
+            <div>
+              <ul class="timeline">
+                <li class="timeline-item" ng-repeat="lichsua in listlichsu">
+                  <div ng-if="lichsua.trangThai == 5" class="timeline-content">
+                    <span class="order-label">Tạo hóa đơn</span>
+                    <span>{{ beautifyDate(lichsua.ngayTao) }}</span><br />
+                  </div>
+                  <div ng-if="lichsua.trangThai == 0" class="timeline-content">
+                    <span class="order-label">Chờ xác nhận</span>
+                    <span>{{ beautifyDate(lichsua.ngayTao) }}</span><br />
+                  </div>
+                  <div ng-if="lichsua.trangThai == 1" class="timeline-content">
+                    <span class="order-label">Chờ giao hàng</span><span>{{ beautifyDate(lichsua.ngayTao) }}</span><br />
+                  </div>
+                  <div ng-if="lichsua.trangThai == 2" class="timeline-content">
+                    <span class="order-label">Đang giao hàng</span><span>{{ beautifyDate(lichsua.ngayTao)
+                      }}</span><br />
+                  </div>
+                  <div ng-if="lichsua.trangThai == 3" class="timeline-content">
+                    <span class="order-label">Đã nhận hàng</span><span>{{ beautifyDate(lichsua.ngayTao) }}</span><br />
+                  </div>
+                  <div ng-if="lichsua.trangThai == 4" class="timeline-content">
+                    <span class="order-label">Đã hủy</span><span>{{ beautifyDate(lichsua.ngayTao) }}</span><br />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 ms-3 " ng-if="detailHoaDon.trangThai ==0 ">
+            <a type="button" id="liveToastBtn" class="btn btn-primary" ng-click="daXacNhan(detailHoaDon)">Xác nhận đơn
+              hàng</a>
+          </div>
+          <div class="col-md-2 ms-3" ng-if="detailHoaDon.trangThai ==2 ">
+            <a type="button" id="liveToastBtn" class="btn btn-primary" ng-click="daNhanHang(detailHoaDon)">Xác nhận
+            </a>
+          </div>
+          <div class="col-md-2 " ng-if="detailHoaDon.trangThai ==2 ">
+            <a type="button" id="liveToastBtn" class="btn btn-danger" ng-click="khongNhanHang(detailHoaDon)">Khách
+              không
+              nhận</a>
+          </div>
+          <div class="col-md-2" ng-if="detailHoaDon.trangThai ==0 ">
+            <a type="button" id="liveToastBtn" class="btn btn-danger" ng-click="huyDonHang(detailHoaDon)">Hủy Đơn
+              hàng</a>
+          </div>
+
+          <div class="col-md-2 ms-3" ng-if="detailHoaDon.trangThai ==1 ">
+            <a type="button" id="liveToastBtn" class="btn btn-primary" ng-click="xacNhanDonHang(detailHoaDon)">Xác nhận
+              giao hàng</a>
+          </div>
+
+        </div>
+        <div class="text-end m-3">
+          <a data-bs-toggle="modal" data-bs-target="#updateSanPhamChiTiet" type="button" class="btn btn-primary"
+            ng-click="add($event)">Chi tiết</a>
+        </div>
+      </div>
+      <div class="card flex-fill">
+        <h4 class="mt-4">THÔNG TIN ĐƠN HÀNG</h4>
+        <hr />
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-3 mb-4">Mã đơn hàng</div>
+                <div class="col-md-9">
+                  <p>{{detailHoaDon.ma}}</p>
+                </div>
+                <div class="col-md-3 mb-4">Loại</div>
+                <div class="col-md-9">
+                  <p>{{detailHoaDon.loaiHoaDon}}</p>
+                </div>
+                <div class="col-md-3 mb-4">Trạng thái</div>
+                <div class="col-md-9">
+                  <p>
+                    {{detailHoaDon.trangThai==0?"Chờ xác
+                    nhận":detailHoaDon.trangThai==1?"Chờ giao
+                    hàng":detailHoaDon.trangThai==2?"Đang giao
+                    hàng":detailHoaDon.trangThai==3?"Đã nhận hàng":
+                    detailHoaDon.trangThai==5?"Tạo đơn hàng": "Đã hủy"}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-3 mb-4">Tên khách hàng</div>
+                <div class="col-md-9">
+                  <p>{{detailHoaDon.tenKhachHang}}</p>
+                </div>
+                <div class="col-md-3 mb-4">Số điện thoại</div>
+                <div class="col-md-9">
+                  <p>{{detailHoaDon.soDienThoaiKhachHang}}</p>
+                </div>
+                <div class="col-md-3 mb-4">Địa chỉ</div>
+                <div class="col-md-9">
+                  <p>{{detailHoaDon.diaChiKhachHang}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="updateSanPhamChiTiet" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12" ng-repeat="hihi in listlichsu">
+                    <div class="row" ng-if="hihi.trangThai !=4">
+                      <div class="col-md-6">
+                        <label class="form-label">Nội dung: </label>
+                        <span>{{hihi.noiDung}}</span>
+                      </div>
+                      <!-- Confirmation Column -->
+                      <div class="col-md-6">
+                        <label class="form-label">Người xác nhân: </label>
+                        <span>{{hihi.nguoiTao}}</span>
+                      </div>
+                    </div>
+                    <div ng-if="hihi.trangThai ==4">
+                      <div class="col-md-6">
+                        <label class="form-label">Lý do hủy: </label>
+                        <span>{{hihi.noiDung}}</span>
+                      </div>
+                      <!-- Confirmation Column -->
+                      <div class="col-md-6">
+                        <label class="form-label">Người hủy: </label>
+                        <span>{{hihi.nguoiTao}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card flex-fill">
+        <h4 class="mt-4">THÔNG TIN THANH TOÁN</h4>
+        <hr />
+        <table class="table align-self-center">
+          <thead>
+            <tr>
+              <th scope="col">Tiền hàng</th>
+              <th scope="col">Giảm giá</th>
+              <th scope="col">Phí vận chuyển</th>
+              <th scope="col">Tổng tiền</th>
+              <th scope="col">Xác nhận</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{ tienHang ? (tienHang | number) + ' VNĐ' : '0 VNĐ' }}</th>
+              <th>{{ giamGia ? (giamGia | number) + ' VNĐ' : '0 VNĐ' }}</th>
+              <th>
+                {{ detailHoaDon.phiShip ? (detailHoaDon.phiShip | number) + '
+                VNĐ' : '0 VNĐ' }}
+              </th>
+              <th>
+                {{ detailHoaDon.tongTien ? (detailHoaDon.tongTien | number) + '
+                VNĐ' : '0 VNĐ' }}
+              </th>
+              <th>Ngọc Hưng</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card flex-fill">
+        <h4 class="mt-4">DANH SÁCH SẢN PHẨM</h4>
+        <hr />
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <!-- 
+          <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#quetQR">
+              Quét Qr Code
+          </button> -->
+          <button ng-if="detailHoaDon.trangThai==0" class="btn btn-primary mb-3" data-bs-toggle="modal"
+            data-bs-target="#addSanPham">
+            Thêm Sản Phẩm
+          </button>
+        </div>
+        <table class="table hover mb-4">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Ảnh sản phẩm</th>
+              <th scope="col">Tên sản phẩm</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Đơn giá</th>
+              <th scope="col">Thành tiền</th>
+              <th scope="col" ng-if="detailHoaDon.trangThai==0">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="hoaDonChiTiet in listHoaDonChiTiet">
+            <tr>
+              <th scope="row">{{customIndexHDCT+$index+1}}</th>
+              <th>
+                <img class="table_img" ng-src="../../../assets/anh-san-pham/{{hoaDonChiTiet.duongDan}}"
+                  alt="Không có ảnh" />
+              </th>
+              <th scope="row">
+                {{hoaDonChiTiet.tenSanPham}} [ {{hoaDonChiTiet.tenMauSac}} -
+                {{hoaDonChiTiet.tenKichThuoc}} ]
+              </th>
+              <th scope="row">
+                <input ng-if="detailHoaDon.trangThai==0" type="number" ng-model="hoaDonChiTiet.soLuong"
+                  id="liveToastBtn" ng-change="changeSoLuong(hoaDonChiTiet.idSanPhamChiTiet,$index)"
+                  class="form-control form-control-sm" style="width: 100px; height: 30px" />
+                <input ng-if="detailHoaDon.trangThai!=0" disabled type="number" ng-model="hoaDonChiTiet.soLuong"
+                  id="liveToastBtn" ng-change="changeSoLuong(hoaDonChiTiet.idSanPhamChiTiet,$index)"
+                  class="form-control form-control-sm" style="width: 100px; height: 30px" />
+              </th>
+              <th scope="row">{{hoaDonChiTiet.donGia | number}} VND</th>
+              <th scope="row">{{hoaDonChiTiet.thanhTien | number}} VND</th>
+
+              <th ng-if="detailHoaDon.trangThai==0" data-toggle="tooltip" data-placement="top" title="Xóa">
+                <a ng-click="xoaSanPhamGioHang(hoaDonChiTiet.idHoaDonChiTiet)">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <div ng-if="listHoaDonChiTiet.length===0">
+          <p class="dataTables_empty_icon">
+            <img src="../../../assets/anh-san-pham/empty-product.png" alt="" />
+          </p>
+
+          <p class="dataTables_empty_lable">Không có sản phẩm nào</p>
+        </div>
+        <nav ng-if="detailHoaDon.trangThai==0 && listHoaDonChiTiet.length>0" aria-label="Page navigation example mt-3">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" ng-click="previousPageHDCT()">
+                <span aria-hidden="true">
+                  << </span>
+              </a>
+            </li>
+            <li class="page-item" ng-repeat="page in totalPagesHDCT track by $index"
+              ng-class="{'active': $index === currentPageHDCT} " ng-click="changePageHDCT($index);">
+              <a class="page-link">{{$index+1}}</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" ng-click="nextPageHDCT()">>></a>
+            </li>
+          </ul>
+          <p>Tổng số trang: {{ totalPagesHDCT.length }}</p>
+        </nav>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <div class="modal fade" id="addSanPham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+              <div class="modal-content">
+                <h4 class="p-3">DANH SÁCH SẢN PHẨM</h4>
+                <div class="wrapper_layered_filter ms-3">
+                  <div class="layered_filter_parent">
+                    <div class="layered_filter_container">
+                      <div class="layered_filter_group">
+                        <div class="row">
+                          <div class="search-container col-md-5 ms-3">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" ng-model="searchKeyword" placeholder="Tìm kiếm sản phẩm theo tên"
+                              ng-change="search()" class="search-input" />
+                          </div>
+                          <div class="filter_group col-md-3 col-sm-12 col-xs-12" aria-expanded="false">
+                            <div class="filter_group_block">
+                              <div class="filter_group-subtitle">
+                                <span>Màu sắc</span>
+                                <span class="icon-control"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                              </div>
+                              <div class="filter_group-content filter-color">
+                                <ul class="checkbox-list">
+                                  <li ng-repeat="mauSac in listMauSac">
+                                    <input type="checkbox" id="{{mauSac.ma}}" ng-click="locSanPhamTheoMau($index)" />
+                                    <label for="{{mauSac.ma}}" ng-value="mauSac.ten"
+                                      ng-style="{ 'background-color': mauSac.ma }"></label>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="filter_group col-md-3 col-sm-12 col-xs-12" aria-expanded="false">
+                            <div class="filter_group_block">
+                              <div class="filter_group-subtitle">
+                                <span>Kích thước</span>
+                                <span class="icon-control"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                              </div>
+                              <div class="filter_group-content filter-size">
+                                <ul class="checkbox-list">
+                                  <li ng-repeat="kichThuoc in listKichThuoc">
+                                    <input type="checkbox" id="{{kichThuoc.ma}}"
+                                      ng-click="locSanPhamTheoKichThuoc($index)" />
+                                    <label for="{{kichThuoc.ma}}">{{kichThuoc.ten}}</label>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Ảnh Đại Diện</th>
+                        <th scope="col">Tên Sản Phẩm</th>
+                        <th scope="col">Số Lượng</th>
+                        <th scope="col">Đơn Giá</th>
+                        <th scope="col">Thao Tác</th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="sanPhamChiTiet in listSanPhamChiTiet ">
+                      <tr>
+                        <th scope="row">{{ customIndex+$index+1}}</th>
+                        <th scope="row">
+                          <img class="table_img" ng-src="../../../assets/anh-san-pham/{{sanPhamChiTiet.duongDan}}"
+                            alt="Không có ảnh" />
+                        </th>
+                        <th scope="row">
+                          {{sanPhamChiTiet.tenSanPham}}
+                          [{{sanPhamChiTiet.tenMauSac}} -
+                          {{sanPhamChiTiet.tenKichThuoc}}]
+                        </th>
+                        <th scope="row">{{sanPhamChiTiet.soLuong}}</th>
+                        <th scope="row">
+                          {{sanPhamChiTiet.donGia | number}} VND
+                        </th>
+
+                        <th>
+                          <a type="button" class="btn btn-warning" data-bs-dismiss="modal"
+                            ng-click="addSanPhamChiTiet(sanPhamChiTiet.idSanPhamChiTiet,$index)">Chọn</a>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div ng-if="listSanPhamChiTiet.length===0">
+                    <p class="dataTables_empty_icon">
+                      <img src="../../../assets/anh-san-pham/empty-product.png" alt="" />
+                    </p>
+                    <p class="dataTables_empty_lable">Không có sản phẩm nào</p>
+                  </div>
+                  <nav aria-label="Page navigation example " ng-if="listSanPhamChiTiet.length!==0">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item">
+                        <a class="page-link" ng-click="previousPage()">
+                          <span aria-hidden="true">
+                            << </span>
+                        </a>
+                      </li>
+                      <li class="page-item" ng-repeat="page in totalPages track by $index"
+                        ng-class="{'active': $index === currentPage} " ng-click="changePage($index);">
+                        <a class="page-link">{{$index+1}}</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" ng-click="nextPage()">>></a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1100">
+      <div class="toast-body">
+        <span class="success" ng-show="showError==false">
+          <i class="fa-solid fa-check fa-xl"></i>
+        </span>
+        <span class="icon_error" ng-show="showError">
+          <i class="fa-solid fa-xmark fa-xl"></i>
+        </span>
+        <span class="message_error"> {{message}} </span>
+        <div id="myProgress">
+          <div id="success" ng-show="showError==false"></div>
+          <div id="error" ng-show="showError"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<style>
+  .timeline-content {
+    text-align: center;
+  }
+
+  .timeline-content .order-label {
+    display: block;
+    font-size: 18px;
+    /* Đặt kích thước chữ cho span */
+    margin-bottom: 2px;
+  }
+
+  .timeline-content span {
+    margin-bottom: 3px;
+    /* Khoảng cách giữa span và đoạn p */
+  }
+
+  .order-details {
+    display: flex;
+    align-items: center;
+  }
+
+  .order-id,
+  .status {
+    margin-right: 0px;
+    /* Khoảng cách giữa mã đơn hàng và trạng thái */
+  }
+
+  .status {
+    font-weight: bold;
+    /* In đậm trạng thái */
+    /* Thêm các thuộc tính CSS khác tùy thuộc vào yêu cầu thiết kế của bạn */
+  }
+
+  .timeline-container {
+    overflow-x: hidden;
+    white-space: nowrap;
+    position: relative;
+    font-size: 14px;
+  }
+
+  .timeline {
+    display: flex;
+    list-style: none;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    /* Ẩn phần thừa nằm ngoài giới hạn */
+  }
+
+  .timeline::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #000000;
+    z-index: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    /* Remove or modify the clip-path property below */
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 70%, 0% 100%); */
+  }
+
+  .timeline::before {
+    content: none;
+    /* Completely remove the ::before pseudo-element */
+  }
+
+  .timeline-item::before {
+    display: none;
+    /* Completely remove the ::before pseudo-element */
+  }
+
+  .timeline-item {
+    position: relative;
+    width: 400px;
+    margin-right: 24px;
+    padding: 15px;
+    background: #3dd014;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 3;
+    font-size: 14px;
+    color: #333333;
+  }
+
+  .timeline-item::after {
+    display: none;
+  }
+
+  .timeline-item:hover {
+    transform: translateY(-5px);
+    background: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  }
+</style>

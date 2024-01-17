@@ -1,0 +1,250 @@
+<main class="wrapperMain_content">
+  <div class="layout-collections 0">
+    <div class="wrapper-mainCollection">
+      <div class="collection-heading">
+        <div class="container">
+          <h1 class="title">Tất cả sản phẩm</h1>
+          <hr />
+          <form class="d-flex" role="search">
+            <input
+              ng-model="searchKeyword"
+              ng-change="searchTen()"
+              id="inputSearchAuto-3"
+              class="input-search outline-success"
+              autocomplete="off"
+              type="text"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Search"
+            />
+          </form>
+          <hr />
+        </div>
+      </div>
+
+      <div class="collection-filter">
+        <div class="container">
+          <div class="wrapper_layered_filter">
+            <div class="layered_filter_parent">
+              <div class="layered_filter_container">
+                <div class="layered_filter_group">
+                  <div class="row">
+                    <!-- ./filter sortby -->
+
+                    <!-- ./filter brand -->
+                    <!-- ./filter price -->
+
+                    <!-- ./filter color -->
+
+                    <!-- ./filter size -->
+                    <div
+                      class="filter_group col-md-3 col-sm-12 col-xs-12"
+                      aria-expanded="false"
+                    >
+                      <div class="filter_group_block"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="layered_filter_bottom">
+                  <button
+                    id="clear-btn-filter"
+                    class="btn-filter btn-filter-clear"
+                  >
+                    Hủy
+                  </button>
+                  <button
+                    id="apply-btn-filter"
+                    class="btn-filter btn-filter-apply"
+                  >
+                    Áp dụng
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="collection-listproduct" id="collection-body">
+        <div class="container">
+          <div class="wraplist-collection">
+            <div class="listProduct-row listProduct-resize listProduct-filter">
+              <div
+                class="col-md-3 col-sm-6 col-xs-6 product-loop"
+                ng-repeat="topSanPham in listTopSanPham"
+                data-id="1114414061"
+              >
+                <div class="product-inner product-resize">
+                  <div class="proloop-image">
+                    <div class="product--image image-resize">
+                      <div class="product--image__inner">
+                        <div class="">
+                          <div
+                            id="carouselExampleSlidesOnly"
+                            class="carousel slide"
+                            data-bs-ride="carousel"
+                          >
+                            <div class="carousel-inner">
+                              <div
+                                class="carousel-item"
+                                ng-class="{'active': $index===0}"
+                                data-bs-interval="2000"
+                                ng-repeat="hinhAnh in topSanPham.duongDan"
+                              >
+                                <a
+                                  href="#/detail-product/{{topSanPham.idSanPham}}"
+                                >
+                                  <img
+                                    src="../../../assets/anh-san-pham/{{hinhAnh}}"
+                                    class="d-block w-100"
+                                    alt="..."
+                                  />
+                                  <div
+                                    class="prod-img second-image hovered-img hidden-xs"
+                                  >
+                                    <img
+                                      class="hover img-loop"
+                                      src="../../assets/anh-size/z2291209047175_ff86b10a5d64418b92e7357ec31dc4af_f56ec73ea1e54871ad129ba3480e6a98_grande.jpg"
+                                    />
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="proloop-detail">
+                    <h3>
+                      <a
+                        href="#/detail-product/{{topSanPham.idSanPham}}"
+                        class="quickview-product"
+                        >{{topSanPham.tenSanPham}} {{topSanPham.tenPhongCach}}
+                        {{topSanPham.tenHoaTiet}}
+                      </a>
+                    </h3>
+                    <p class="proloop--price">
+                      <span
+                        ng-if="topSanPham.giaMax!=topSanPham.giaMin"
+                        class="price"
+                        >{{topSanPham.giaMin | number}}₫ - {{topSanPham.giaMax |
+                        number}}₫</span
+                      >
+                      <span
+                        ng-if="topSanPham.giaMax==topSanPham.giaMin"
+                        class="price"
+                        >{{topSanPham.giaMin | number}}₫</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="col-md-3 col-sm-6 col-xs-6 product-loop"
+                data-id="1102022071"
+              >
+                <div class="product-inner product-resize">
+                  <div class="proloop-image">
+                    <div class="product--image image-resize">
+                      <div class="product--image__inner">
+                        <div class="prod-img first-image">
+                          <picture>
+                            <source
+                              media="(max-width: 480px)"
+                              data-srcset="../../product.hstatic.net/200000258387/product/3_6d5151171e6448aaa8101b093277e470_medium.png"
+                              srcset="
+                                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+                              "
+                            />
+                            <source
+                              media="(min-width: 481px) and (max-width:767px)"
+                              data-srcset="../../product.hstatic.net/200000258387/product/3_6d5151171e6448aaa8101b093277e470_large.png"
+                              srcset="
+                                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+                              "
+                            />
+                            <source
+                              media="(min-width: 768px)"
+                              data-srcset="../../product.hstatic.net/200000258387/product/3_6d5151171e6448aaa8101b093277e470_large.png"
+                              srcset="
+                                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+                              "
+                            />
+                            <img
+                              class="lazyload img-loop"
+                              data-src="../../product.hstatic.net/200000258387/product/3_6d5151171e6448aaa8101b093277e470_large.png"
+                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                              alt=" 8YO CUPID ANGEL TEE "
+                            />
+                          </picture>
+                        </div>
+                        <div
+                          class="prod-img second-image hovered-img hidden-xs"
+                        >
+                          <picture>
+                            <source
+                              media="(max-width: 480px)"
+                              data-srcset="../../product.hstatic.net/200000258387/product/15_6676ae18cec3437e9aac6f9cf60fc13b_thumb.jpg"
+                              srcset="
+                                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+                              "
+                            />
+                            <source
+                              media="(min-width: 481px) and (max-width:767px)"
+                              data-srcset="../../product.hstatic.net/200000258387/product/15_6676ae18cec3437e9aac6f9cf60fc13b_small.jpg"
+                              srcset="
+                                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+                              "
+                            />
+                            <source
+                              media="(min-width:768px)"
+                              data-srcset="../../product.hstatic.net/200000258387/product/15_6676ae18cec3437e9aac6f9cf60fc13b_large.jpg"
+                              srcset="
+                                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+                              "
+                            />
+                            <img
+                              class="lazyload img-loop"
+                              data-src="../../product.hstatic.net/200000258387/product/15_6676ae18cec3437e9aac6f9cf60fc13b_large.jpg"
+                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                              alt=" 8YO CUPID ANGEL TEE "
+                            />
+                          </picture>
+                        </div>
+                      </div>
+                    </div>
+                    <a
+                      href="../products/8yo-cupid-angle-tee.html"
+                      class="proloop-link quickview-product"
+                      data-handle="/products/8yo-cupid-angle-tee"
+                      title="8YO CUPID ANGEL TEE"
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="collection-loadmore text-center">
+              <a
+                href="javascript:void(0);"
+                class="button dark btn-loadmore"
+                data-collectionid="0"
+                data-page="2"
+                data-collectionhd="/collections/all"
+                >Xem thêm sản phẩm
+                <b>Tất cả sản phẩm</b>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input
+      type="text"
+      class="hidden"
+      id="coll-handle"
+      value="(collectionid:product>0)"
+    />
+  </div>
+</main>
